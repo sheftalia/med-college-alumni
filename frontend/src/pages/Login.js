@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
+import { loginUser } from '../services/api';
 import '../styles/Login.css';
 
 const Login = () => {
@@ -10,25 +11,33 @@ const Login = () => {
   });
 
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const { login } = useContext(AuthContext); // <--- Get login from context
+  const { login } = useContext(AuthContext);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setError('');
 
     if (!formData.email || !formData.password) {
       setError('All fields are required.');
       return;
     }
     
-    // Mock login - we assume this user is an Alumni
-    login('Alumni');  // <--- Save role as "Alumni"
-    alert('Login Successful! Redirecting to Dashboard...');
-    navigate('/dashboard');
+    try {
+      setLoading(true);
+      const response = await loginUser(formData);
+      login(response.token, response.user);
+      navigate('/dashboard');
+    } catch (error) {
+      setError(error.response?.data?.message || 'Login failed. Please try again.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -53,7 +62,9 @@ const Login = () => {
 
         {error && <p className="error">{error}</p>}
 
-        <button type="submit">Login</button>
+        <button type="submit" disabled={loading}>
+          {loading ? 'Logging in...' : 'Login'}
+        </button>
       </form>
     </div>
   );

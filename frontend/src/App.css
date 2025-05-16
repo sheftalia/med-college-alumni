@@ -1,0 +1,92 @@
+:root {
+  --primary-color: #9E0B0F;   /* Red from logo */
+  --secondary-color: #0085BE; /* Blue from logo */
+  --text-color: #333333;
+  --light-gray: #F5F5F5;
+  --medium-gray: #E0E0E0;
+  --dark-gray: #555555;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: white;
+  color: var(--text-color);
+  line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main-content {
+  flex: 1;
+  padding-bottom: 50px;
+}
+
+.title-font {
+  font-family: 'Noto Serif', serif;
+  font-weight: 400;
+}
+
+.primary-button {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  transition: background-color 0.3s;
+}
+
+.primary-button:hover {
+  background-color: #8A0A0E;
+}
+
+.secondary-button {
+  background-color: var(--secondary-color);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  transition: background-color 0.3s;
+}
+
+.secondary-button:hover {
+  background-color: #0074A5;
+}
+
+.text-button {
+  background: none;
+  border: none;
+  color: var(--primary-color);
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  text-decoration: underline;
+}
+
+.footer {
+  background-color: var(--light-gray);
+  padding: 20px;
+  text-align: center;
+  margin-top: auto;
+  border-top: 1px solid var(--medium-gray);
+}

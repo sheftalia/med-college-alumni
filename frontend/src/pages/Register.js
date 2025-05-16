@@ -1,31 +1,51 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { registerUser, getSchoolsAndCourses } from '../services/api';
 import '../styles/Register.css';
-import { registerUser } from '../services/api';
 
 const Register = () => {
   const [formData, setFormData] = useState({
-    fullName: '',
     email: '',
     password: '',
-    confirmPassword: '',
-    school: ''
+    confirmPassword: ''
   });
 
   const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(false);
+  const [schools, setSchools] = useState([]);
+  const [courses, setCourses] = useState([]);
+  const [selectedSchool, setSelectedSchool] = useState('');
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchSchoolsAndCourses = async () => {
+      try {
+        const data = await getSchoolsAndCourses();
+        setSchools(data.schools || []);
+        setCourses(data.courses || []);
+      } catch (error) {
+        console.error('Failed to fetch schools and courses', error);
+      }
+    };
+
+    fetchSchoolsAndCourses();
+  }, []);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const handleSchoolChange = (e) => {
+    setSelectedSchool(e.target.value);
+  };
+
   const validateForm = () => {
     const errors = {};
 
-    if (!formData.fullName) errors.fullName = "Full Name is required.";
     if (!formData.email) errors.email = "Email is required.";
     if (!formData.password) errors.password = "Password is required.";
     if (formData.password !== formData.confirmPassword) 
       errors.confirmPassword = "Passwords do not match.";
-    if (!formData.school) errors.school = "Please select a school.";
 
     setErrors(errors);
 
@@ -36,28 +56,31 @@ const Register = () => {
     e.preventDefault();
     if (validateForm()) {
       try {
-        const response = await registerUser(formData);
-        alert("Registration Successful!");
-        console.log('Server Response:', response);
+        setLoading(true);
+        const userData = {
+          email: formData.email,
+          password: formData.password
+        };
+        
+        await registerUser(userData);
+        alert("Registration Successful! Please login to continue.");
+        navigate('/login');
       } catch (error) {
-        alert("Registration Failed. Please try again.");
+        setErrors({ general: error.response?.data?.message || "Registration Failed. Please try again." });
+      } finally {
+        setLoading(false);
       }
     }
   };
+
+  const filteredCourses = courses.filter(
+    course => course.school_id === parseInt(selectedSchool)
+  );
 
   return (
     <div className="register-container">
       <h2>Register as an Alumni</h2>
       <form onSubmit={handleSubmit}>
-        <input 
-          type="text" 
-          name="fullName" 
-          placeholder="Full Name" 
-          value={formData.fullName} 
-          onChange={handleChange} 
-        />
-        {errors.fullName && <p className="error">{errors.fullName}</p>}
-        
         <input 
           type="email" 
           name="email" 
@@ -87,18 +110,22 @@ const Register = () => {
         
         <select 
           name="school" 
-          value={formData.school} 
-          onChange={handleChange} 
+          value={selectedSchool} 
+          onChange={handleSchoolChange} 
         >
           <option value="">Select School</option>
-          <option value="Business School">Business School</option>
-          <option value="Engineering School">Engineering School</option>
-          <option value="IT School">IT School</option>
-          <option value="Arts School">Arts School</option>
+          {schools.map(school => (
+            <option key={school.id} value={school.id}>
+              {school.name}
+            </option>
+          ))}
         </select>
-        {errors.school && <p className="error">{errors.school}</p>}
 
-        <button type="submit">Register</button>
+        {errors.general && <p className="error">{errors.general}</p>}
+
+        <button type="submit" disabled={loading}>
+          {loading ? 'Registering...' : 'Register'}
+        </button>
       </form>
     </div>
   );

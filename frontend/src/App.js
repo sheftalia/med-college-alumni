@@ -1,64 +1,73 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import React, { useContext } from 'react';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import { AuthContext } from './context/AuthContext';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Profile from './pages/Profile';
 import Dashboard from './pages/Dashboard';
-import Events from './pages/Events';
-import Messages from './pages/Messages';
 import NotFound from './pages/NotFound';
-import Navbar from './components/Navbar';  // <== Navbar should be imported here
-import PrivateRoute from './components/PrivateRoute';
-import './App.css';  // <== Make sure you import your CSS here
+import Navbar from './components/Navbar';
+import Loader from './components/Loader';
+import './App.css';
 
 const App = () => {
+  const { isLoggedIn, loading, user } = useContext(AuthContext);
+
+  // Custom private route component
+  const PrivateRoute = ({ children, requiresProfile = true }) => {
+    if (loading) {
+      return <Loader loading={true} />;
+    }
+    
+    if (!isLoggedIn) {
+      return <Navigate to="/login" />;
+    }
+    
+    if (requiresProfile && user?.role === 'applied_alumni') {
+      return <Navigate to="/profile" />;
+    }
+    
+    return children;
+  };
+
   return (
-    <Router>
-      <Navbar /> {/* This should be above the Routes */}
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
+    <div className="app-container">
+      <Navbar />
+      <main className="main-content">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={isLoggedIn ? <Navigate to="/dashboard" /> : <Login />} />
+          <Route path="/register" element={isLoggedIn ? <Navigate to="/dashboard" /> : <Register />} />
 
-        {/* 🔒 Protected Routes */}
-        <Route 
-          path="/profile" 
-          element={
-            <PrivateRoute>
-              <Profile />
-            </PrivateRoute>
-          } 
-        />
-        <Route 
-          path="/dashboard" 
-          element={
-            <PrivateRoute>
-              <Dashboard />
-            </PrivateRoute>
-          } 
-        />
-        <Route 
-          path="/events" 
-          element={
-            <PrivateRoute>
-              <Events />
-            </PrivateRoute>
-          } 
-        />
-        <Route 
-          path="/messages" 
-          element={
-            <PrivateRoute>
-              <Messages />
-            </PrivateRoute>
-          } 
-        />
+          {/* Profile page - accessible to all logged in users */}
+          <Route 
+            path="/profile" 
+            element={
+              <PrivateRoute requiresProfile={false}>
+                <Profile />
+              </PrivateRoute>
+            } 
+          />
+          
+          {/* Dashboard - requires completed profile */}
+          <Route 
+            path="/dashboard" 
+            element={
+              <PrivateRoute>
+                <Dashboard />
+              </PrivateRoute>
+            } 
+          />
 
-        {/* 404 Page */}
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </Router>
+          {/* 404 Page */}
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </main>
+      <footer className="footer">
+        <p>© {new Date().getFullYear()} Mediterranean College Alumni Portal. All rights reserved.</p>
+      </footer>
+    </div>
   );
 };
 
