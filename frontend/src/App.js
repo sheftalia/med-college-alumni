@@ -6,6 +6,9 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Profile from './pages/Profile';
 import Dashboard from './pages/Dashboard';
+import Events from './pages/Events';
+import Messages from './pages/Messages';
+import AlumniDirectory from './pages/AlumniDirectory';
 import NotFound from './pages/NotFound';
 import Navbar from './components/Navbar';
 import Loader from './components/Loader';
@@ -46,6 +49,42 @@ const App = () => {
             element={
               <PrivateRoute requiresProfile={false}>
                 <Profile />
+              </PrivateRoute>
+            } 
+          />
+          
+          {/* Alumni profile view for individual profiles */}
+          <Route 
+            path="/profile/:id" 
+            element={
+              <PrivateRoute requiresProfile={false}>
+                <Profile viewMode={true} />
+              </PrivateRoute>
+            } 
+          />
+          
+          {/* Alumni Directory */}
+          <Route 
+            path="/alumni" 
+            element={
+              <PrivateRoute>
+                <AlumniDirectory />
+              </PrivateRoute>
+            } 
+          />
+          
+          {/* Events page */}
+          <Route 
+            path="/events" 
+            element={<Events />} 
+          />
+          
+          {/* Messages page - requires completed profile */}
+          <Route 
+            path="/messages" 
+            element={
+              <PrivateRoute>
+                <Messages />
               </PrivateRoute>
             } 
           />

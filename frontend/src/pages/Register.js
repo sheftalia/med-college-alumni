@@ -7,7 +7,8 @@ const Register = () => {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
-    confirmPassword: ''
+    confirmPassword: '',
+    gender: '' // Add gender field
   });
 
   const [errors, setErrors] = useState({});
@@ -15,13 +16,19 @@ const Register = () => {
   const [schools, setSchools] = useState([]);
   const [courses, setCourses] = useState([]);
   const [selectedSchool, setSelectedSchool] = useState('');
+  const [filteredCourses, setFilteredCourses] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchSchoolsAndCourses = async () => {
       try {
         const data = await getSchoolsAndCourses();
-        setSchools(data.schools || []);
+        
+        // Remove duplicates by using Set
+        const uniqueSchools = Array.from(new Set(data.schools.map(s => s.id)))
+          .map(id => data.schools.find(s => s.id === id));
+        
+        setSchools(uniqueSchools || []);
         setCourses(data.courses || []);
       } catch (error) {
         console.error('Failed to fetch schools and courses', error);
@@ -31,12 +38,26 @@ const Register = () => {
     fetchSchoolsAndCourses();
   }, []);
 
+  // Update filtered courses when school selection changes
+  useEffect(() => {
+    if (selectedSchool) {
+      const schoolCourses = courses.filter(
+        course => course.school_id === parseInt(selectedSchool)
+      );
+      setFilteredCourses(schoolCourses);
+    } else {
+      setFilteredCourses([]);
+    }
+  }, [selectedSchool, courses]);
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSchoolChange = (e) => {
     setSelectedSchool(e.target.value);
+    // Clear any previously selected course
+    setFormData({ ...formData, course_id: '' });
   };
 
   const validateForm = () => {
@@ -46,6 +67,8 @@ const Register = () => {
     if (!formData.password) errors.password = "Password is required.";
     if (formData.password !== formData.confirmPassword) 
       errors.confirmPassword = "Passwords do not match.";
+    if (!selectedSchool) errors.school = "Please select a school.";
+    if (selectedSchool && !formData.course_id) errors.course = "Please select a course.";
 
     setErrors(errors);
 
@@ -59,28 +82,47 @@ const Register = () => {
         setLoading(true);
         const userData = {
           email: formData.email,
-          password: formData.password
+          password: formData.password,
+          gender: formData.gender
         };
         
-        await registerUser(userData);
-        alert("Registration Successful! Please login to continue.");
-        navigate('/login');
+        const response = await registerUser(userData);
+        
+        // Instead of alert, we'll set a success message to display in the form
+        setFormData({
+          ...formData,
+          successMessage: "Registration successful! Please login to continue."
+        });
+        
+        // Redirect after a short delay
+        setTimeout(() => {
+          navigate('/login');
+        }, 3000);
       } catch (error) {
-        setErrors({ general: error.response?.data?.message || "Registration Failed. Please try again." });
+        setErrors({ general: error.response?.data?.message || "Registration failed. Please try again." });
       } finally {
         setLoading(false);
       }
     }
   };
 
-  const filteredCourses = courses.filter(
-    course => course.school_id === parseInt(selectedSchool)
-  );
-
   return (
     <div className="register-container">
       <h2>Register as an Alumni</h2>
       <form onSubmit={handleSubmit}>
+        {formData.successMessage && (
+          <div className="success-message">
+            {formData.successMessage}
+            <button 
+              type="button" 
+              className="success-button"
+              onClick={() => navigate('/login')}
+            >
+              OK
+            </button>
+          </div>
+        )}
+      
         <input 
           type="email" 
           name="email" 
@@ -108,18 +150,54 @@ const Register = () => {
         />
         {errors.confirmPassword && <p className="error">{errors.confirmPassword}</p>}
         
-        <select 
-          name="school" 
-          value={selectedSchool} 
-          onChange={handleSchoolChange} 
-        >
-          <option value="">Select School</option>
-          {schools.map(school => (
-            <option key={school.id} value={school.id}>
-              {school.name}
-            </option>
-          ))}
-        </select>
+        <div className="form-group">
+          <label>Gender:</label>
+          <select
+            name="gender" 
+            value={formData.gender} 
+            onChange={handleChange}
+          >
+            <option value="">Select Gender</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+          </select>
+        </div>
+        
+        <div className="form-group">
+          <label>School:</label>
+          <select 
+            name="school" 
+            value={selectedSchool} 
+            onChange={handleSchoolChange} 
+          >
+            <option value="">Select School</option>
+            {schools.map(school => (
+              <option key={school.id} value={school.id}>
+                {school.name}
+              </option>
+            ))}
+          </select>
+          {errors.school && <p className="error">{errors.school}</p>}
+        </div>
+        
+        {selectedSchool && (
+          <div className="form-group">
+            <label>Course:</label>
+            <select 
+              name="course_id" 
+              value={formData.course_id} 
+              onChange={handleChange} 
+            >
+              <option value="">Select Course</option>
+              {filteredCourses.map(course => (
+                <option key={course.id} value={course.id}>
+                  {course.name}
+                </option>
+              ))}
+            </select>
+            {errors.course && <p className="error">{errors.course}</p>}
+          </div>
+        )}
 
         {errors.general && <p className="error">{errors.general}</p>}
 
@@ -127,6 +205,10 @@ const Register = () => {
           {loading ? 'Registering...' : 'Register'}
         </button>
       </form>
+      
+      <div className="form-footer">
+        Already have an account? <a href="/login">Login here</a>
+      </div>
     </div>
   );
 };

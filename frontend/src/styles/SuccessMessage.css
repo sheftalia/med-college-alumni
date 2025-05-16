@@ -1,0 +1,31 @@
+.success-message {
+  background-color: rgba(240, 255, 240, 0.9);
+  border: 1px solid #4CAF50;
+  border-left: 5px solid #4CAF50;
+  color: #2E7D32;
+  padding: 15px;
+  margin-bottom: 20px;
+  border-radius: 4px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.success-message p {
+  margin: 0;
+  font-weight: 500;
+}
+
+.success-button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 6px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.success-button:hover {
+  background-color: #388E3C;
+}

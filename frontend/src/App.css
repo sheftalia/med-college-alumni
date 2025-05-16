@@ -90,3 +90,23 @@ h1, h2, h3, h4, h5, h6 {
   margin-top: auto;
   border-top: 1px solid var(--medium-gray);
 }
+
+.section-title {
+  text-align: center;
+  margin-bottom: 30px;
+  color: var(--primary-color);
+  position: relative;
+  padding-bottom: 25px; /* Increased from 15px */
+}
+
+.section-title:after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background-color: var(--primary-color);
+  margin-bottom: 10px; /* Added this line for spacing below the line */
+}

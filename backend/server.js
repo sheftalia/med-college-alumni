@@ -3,6 +3,8 @@ const cors = require('cors');
 const authRoutes = require('./routes/authRoutes');
 const alumniRoutes = require('./routes/alumniRoutes');
 const profileRoutes = require('./routes/profileRoutes');
+const eventRoutes = require('./routes/eventRoutes');
+const messageRoutes = require('./routes/messageRoutes');
 const { initializeDatabase } = require('./config/database');
 require('dotenv').config();
 
@@ -20,6 +22,8 @@ initializeDatabase();
 app.use('/api/auth', authRoutes);
 app.use('/api/alumni', alumniRoutes);
 app.use('/api/profiles', profileRoutes);
+app.use('/api/events', eventRoutes);
+app.use('/api/messages', messageRoutes);
 
 // Simple test route
 app.get('/', (req, res) => {

@@ -1,8 +1,62 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { getAllAlumni, getSchoolsAndCourses } from '../services/api';
 import '../styles/Home.css';
 
+// Define school colours based on the images on Med College website
+const schoolColors = {
+  "School of Arts & Design": "#8d5b87", // Purple
+  "Business School": "#2e4c9b", // Blue
+  "School of Computing": "#0085BE", // Bright Blue
+  "School of Education": "#e86c3a", // Orange
+  "School of Engineering": "#4d4d4d", // Dark Gray
+  "School of Health & Sport Sciences": "#0b6481", // Teal
+  "School of Psychology": "#a9bd3a", // Lime Green
+  "School of Shipping": "#bd9837", // Gold
+  "School of Tourism & Hospitality": "#9E0B0F" // Red
+};
+
 const Home = () => {
+  const [schools, setSchools] = useState([]);
+  const [courses, setCourses] = useState([]);
+  const [alumni, setAlumni] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        const schoolsData = await getSchoolsAndCourses();
+        const alumniData = await getAllAlumni();
+        
+        setSchools(schoolsData.schools || []);
+        setCourses(schoolsData.courses || []);
+        setAlumni(alumniData.alumni || []);
+      } catch (error) {
+        console.error('Failed to fetch data:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    
+    fetchData();
+  }, []);
+
+  // Count courses by school and type
+  const getSchoolStats = (schoolId) => {
+    const schoolCourses = courses.filter(course => course.school_id === schoolId);
+    const undergrad = schoolCourses.filter(course => course.degree_type === 'Undergraduate').length;
+    const postgrad = schoolCourses.filter(course => course.degree_type === 'Postgraduate').length;
+    
+    // Count alumni from this school
+    const schoolAlumni = alumni.filter(alum => {
+      const alumCourse = courses.find(c => c.id === alum.course_id);
+      return alumCourse && alumCourse.school_id === schoolId;
+    }).length;
+    
+    return { undergrad, postgrad, alumniCount: schoolAlumni };
+  };
+
   return (
     <div className="home-container">
       <section className="hero">
@@ -25,26 +79,8 @@ const Home = () => {
               Our alumni network connects graduates from all of our campuses in Athens, Thessaloniki, and Glyfada, creating opportunities for professional networking, continued learning, and community engagement.
             </p>
           </div>
-          <div className="campus-info">
-            <h3 className="title-font">Our Campuses</h3>
-            <div className="campuses">
-              <div className="campus">
-                <h4>Athens</h4>
-                <p>13 Kodrigktonos & 94 Patission Ave, 104 34</p>
-                <p>Patission Ave & 8 Pellinis, 11251</p>
-                <p>Tel: +30 210 8899600</p>
-              </div>
-              <div className="campus">
-                <h4>Glyfada</h4>
-                <p>33 Achilleos Street & 65 Vouliagmenis Avenue, 16675</p>
-                <p>Tel: +30 210 8899600</p>
-              </div>
-              <div className="campus">
-                <h4>Thessaloniki</h4>
-                <p>21 Ionos Dragoumi, 54625</p>
-                <p>Tel: +30 2310 287779 – +30 2314 440300</p>
-              </div>
-            </div>
+          <div className="about-image">
+            <img src="/images/future-is-yours.jpg" alt="The Future is Yours" className="future-image" />
           </div>
         </div>
       </section>
@@ -52,21 +88,56 @@ const Home = () => {
       <section className="schools-section">
         <h2 className="title-font section-title">Our Schools and Programmes</h2>
         <div className="schools-list">
-          <div className="school">
-            <h3>School of Education</h3>
-            <p>Undergraduate and postgraduate programmes in Education, TESOL, and Special Educational Needs</p>
+          {schools.map(school => {
+            const stats = getSchoolStats(school.id);
+            const schoolColor = schoolColors[school.name] || "#9E0B0F";
+            
+            return (
+              <div className="school" key={school.id} style={{ borderTop: `3px solid ${schoolColor}` }}>
+                <h3 style={{ color: schoolColor }}>{school.name}</h3>
+                <p className="school-stats">
+                  <span>{stats.undergrad} Undergraduate Courses</span>
+                  <span>{stats.postgrad} Postgraduate Courses</span>
+                  <span>{stats.alumniCount} Alumni Registered</span>
+                </p>
+                <Link to={`/alumni?school=${school.id}`} className="view-alumni" style={{ color: schoolColor }}>
+                  View Alumni
+                </Link>
+              </div>
+            );
+          })}
+        </div>
+      </section>
+
+      <section className="campuses-section">
+        <h2 className="title-font section-title">Our Campuses</h2>
+        <div className="campuses">
+          <div className="campus-card">
+            <img src="/images/athens.jpg" alt="Athens Campus" className="campus-image" />
+            <div className="campus-info">
+              <h3>Athens</h3>
+              <p>13 Kodrigktonos & 94 Patission Ave, 104 34</p>
+              <p>Patission Ave & 8 Pellinis, 11251</p>
+              <p>Tel: +30 210 8899600</p>
+            </div>
           </div>
-          <div className="school">
-            <h3>School of Psychology</h3>
-            <p>Comprehensive psychology and counselling programmes at both undergraduate and postgraduate levels</p>
+          
+          <div className="campus-card">
+            <img src="/images/glyfada.jpg" alt="Glyfada Campus" className="campus-image" />
+            <div className="campus-info">
+              <h3>Glyfada</h3>
+              <p>33 Achilleos Street & 65 Vouliagmenis Avenue, 16675</p>
+              <p>Tel: +30 210 8899600</p>
+            </div>
           </div>
-          <div className="school">
-            <h3>Business School</h3>
-            <p>A wide range of business-related degrees including Business Management, Marketing, and Finance</p>
-          </div>
-          <div className="school">
-            <h3>And Many More</h3>
-            <p>Including Computing, Engineering, Tourism & Hospitality, Health & Sport Sciences, Arts & Design, and Shipping</p>
+          
+          <div className="campus-card">
+            <img src="/images/thessaloniki.jpg" alt="Thessaloniki Campus" className="campus-image" />
+            <div className="campus-info">
+              <h3>Thessaloniki</h3>
+              <p>21 Ionos Dragoumi, 54625</p>
+              <p>Tel: +30 2310 287779 – +30 2314 440300</p>
+            </div>
           </div>
         </div>
       </section>

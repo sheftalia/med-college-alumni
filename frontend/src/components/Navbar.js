@@ -22,6 +22,7 @@ const Navbar = () => {
       </div>
       <ul className="nav-links">
         <li><Link to="/">Home</Link></li>
+        <li><Link to="/events">Events</Link></li>
 
         {!isLoggedIn && (
           <>
@@ -37,6 +38,8 @@ const Navbar = () => {
         {isLoggedIn && isRegisteredAlumni() && (
           <>
             <li><Link to="/dashboard">Dashboard</Link></li>
+            <li><Link to="/alumni">Alumni Directory</Link></li>
+            <li><Link to="/messages">Messages</Link></li>
             <li><Link to="/profile">My Profile</Link></li>
           </>
         )}

@@ -80,19 +80,40 @@ async function initializeDatabase() {
     
     // Populate schools and courses from data
     for (const school of schools) {
-      const [schoolResult] = await connection.query(
-        'INSERT IGNORE INTO schools (name) VALUES (?)',
+      // Check if the school already exists
+      const [existingSchools] = await connection.query(
+        'SELECT id FROM schools WHERE name = ?',
         [school.name]
       );
-      
-      const schoolId = schoolResult.insertId || 
-        (await connection.query('SELECT id FROM schools WHERE name = ?', [school.name]))[0][0].id;
-      
-      for (const course of school.courses) {
-        await connection.query(
-          'INSERT IGNORE INTO courses (school_id, name, degree_type) VALUES (?, ?, ?)',
-          [schoolId, course.name, course.degree_type]
+  
+      let schoolId;
+  
+      if (existingSchools.length === 0) {
+        // School doesn't exist, insert it
+        const [schoolResult] = await connection.query(
+          'INSERT INTO schools (name) VALUES (?)',
+          [school.name]
         );
+        schoolId = schoolResult.insertId;
+      } else {
+        // School already exists
+        schoolId = existingSchools[0].id;
+      }
+  
+      for (const course of school.courses) {
+        // Check if the course already exists for this school
+        const [existingCourses] = await connection.query(
+          'SELECT id FROM courses WHERE school_id = ? AND name = ?',
+          [schoolId, course.name]
+        );
+    
+        if (existingCourses.length === 0) {
+          // Course doesn't exist, insert it
+          await connection.query(
+            'INSERT INTO courses (school_id, name, degree_type) VALUES (?, ?, ?)',
+            [schoolId, course.name, course.degree_type]
+          );
+        }
       }
     }
     
@@ -103,12 +124,98 @@ async function initializeDatabase() {
       VALUES ('admin@medcollege.edu.gr', ?, 'admin')
     `, [adminPassword]);
     
+    // Check if gender column exists before trying to add it
+    const [columns] = await connection.query(`
+      SELECT * FROM INFORMATION_SCHEMA.COLUMNS 
+      WHERE TABLE_SCHEMA = ? 
+      AND TABLE_NAME = 'alumni_profiles' 
+      AND COLUMN_NAME = 'gender'
+    `, [dbConfig.database]);
+    
+    // Add gender column only if it doesn't exist
+    if (columns.length === 0) {
+      await connection.query(`
+        ALTER TABLE alumni_profiles
+        ADD COLUMN gender ENUM('male', 'female') NULL
+      `);
+    }
+    
+    // Create events table
+    await connection.query(`
+      CREATE TABLE IF NOT EXISTS events (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        title VARCHAR(255) NOT NULL,
+        description TEXT,
+        event_date DATETIME NOT NULL,
+        location VARCHAR(255) NOT NULL,
+        created_by INT,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY (created_by) REFERENCES users(id)
+      )
+    `);
+    
+    // Create messages table
+    await connection.query(`
+      CREATE TABLE IF NOT EXISTS messages (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        sender_id INT NOT NULL,
+        recipient_id INT NULL,
+        school_id INT NULL,
+        course_id INT NULL,
+        subject VARCHAR(255) NOT NULL,
+        message TEXT NOT NULL,
+        is_read BOOLEAN DEFAULT FALSE,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY (sender_id) REFERENCES users(id),
+        FOREIGN KEY (recipient_id) REFERENCES users(id),
+        FOREIGN KEY (school_id) REFERENCES schools(id),
+        FOREIGN KEY (course_id) REFERENCES courses(id)
+      )
+    `);
+    
+    // Check if school_color column exists before trying to add it
+    const [schoolColorColumn] = await connection.query(`
+      SELECT * FROM INFORMATION_SCHEMA.COLUMNS 
+      WHERE TABLE_SCHEMA = ? 
+      AND TABLE_NAME = 'schools' 
+      AND COLUMN_NAME = 'school_color'
+    `, [dbConfig.database]);
+
+    // Add school_color column only if it doesn't exist
+    if (schoolColorColumn.length === 0) {
+      await connection.query(`
+        ALTER TABLE schools
+        ADD COLUMN school_color VARCHAR(7) DEFAULT '#9E0B0F'
+      `);
+    }
+    
+    // Update school colours (based on images from Med College site)
+    const schoolColors = [
+      { name: 'School of Arts & Design', color: '#8d5b87' },
+      { name: 'Business School', color: '#2e4c9b' },
+      { name: 'School of Computing', color: '#0085BE' },
+      { name: 'School of Education', color: '#e86c3a' },
+      { name: 'School of Engineering', color: '#4d4d4d' },
+      { name: 'School of Health & Sport Sciences', color: '#0b6481' },
+      { name: 'School of Psychology', color: '#a9bd3a' },
+      { name: 'School of Shipping', color: '#bd9837' },
+      { name: 'School of Tourism & Hospitality', color: '#9E0B0F' }
+    ];
+    
+    for (const school of schoolColors) {
+      await connection.query(
+        'UPDATE schools SET school_color = ? WHERE name = ?',
+        [school.color, school.name]
+      );
+    }
+    
     connection.release();
     console.log('Database initialized successfully');
   } catch (error) {
     console.error('Database initialization error:', error);
   }
 }
+
 
 // Export the pool to be used in other files
 module.exports = {

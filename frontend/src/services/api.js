@@ -118,4 +118,96 @@ export const getAlumniById = async (id) => {
   }
 };
 
+// Event Services
+export const getAllEvents = async () => {
+  try {
+    const response = await api.get('/events');
+    return response.data;
+  } catch (error) {
+    console.error("Get events error:", error.response?.data || error.message);
+    throw error;
+  }
+};
+
+export const getEventById = async (id) => {
+  try {
+    const response = await api.get(`/events/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error("Get event error:", error.response?.data || error.message);
+    throw error;
+  }
+};
+
+export const createEvent = async (eventData) => {
+  try {
+    const response = await api.post('/events', eventData);
+    return response.data;
+  } catch (error) {
+    console.error("Create event error:", error.response?.data || error.message);
+    throw error;
+  }
+};
+
+export const updateEvent = async (id, eventData) => {
+  try {
+    const response = await api.put(`/events/${id}`, eventData);
+    return response.data;
+  } catch (error) {
+    console.error("Update event error:", error.response?.data || error.message);
+    throw error;
+  }
+};
+
+export const deleteEvent = async (id) => {
+  try {
+    const response = await api.delete(`/events/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error("Delete event error:", error.response?.data || error.message);
+    throw error;
+  }
+};
+
+// Message Services
+export const getUserMessages = async () => {
+  try {
+    const response = await api.get('/messages');
+    return response.data;
+  } catch (error) {
+    console.error("Get messages error:", error.response?.data || error.message);
+    throw error;
+  }
+};
+
+export const getSentMessages = async () => {
+  try {
+    const response = await api.get('/messages/sent');
+    return response.data;
+  } catch (error) {
+    console.error("Get sent messages error:", error.response?.data || error.message);
+    throw error;
+  }
+};
+
+export const sendMessage = async (messageData) => {
+  try {
+    const response = await api.post('/messages', messageData);
+    return response.data;
+  } catch (error) {
+    console.error("Send message error:", error.response?.data || error.message);
+    throw error;
+  }
+};
+
+export const markAsRead = async (id) => {
+  try {
+    const response = await api.put(`/messages/${id}/read`);
+    return response.data;
+  } catch (error) {
+    console.error("Mark as read error:", error.response?.data || error.message);
+    throw error;
+  }
+};
+
 export default api;
