@@ -3,6 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const { schools } = require('../utils/schoolData');
 const { alumniData } = require('../utils/alumniData');
+const { eventData } = require('../utils/eventData');
 const bcrypt = require('bcryptjs');
 
 // Database connection configuration
@@ -206,12 +207,22 @@ async function initializeDatabase() {
     
     // Create admin user if it doesn't exist
     const adminPassword = await bcrypt.hash('admin123', 10);
-    await connection.query(`
+    const [adminResult] = await connection.query(`
       INSERT IGNORE INTO users (email, password, role) 
       VALUES ('admin@medcollege.edu.gr', ?, 'admin')
     `, [adminPassword]);
     
+    // Get admin ID for creating events
+    const [adminUser] = await connection.query(
+      'SELECT id FROM users WHERE email = ?',
+      ['admin@medcollege.edu.gr']
+    );
+    const adminId = adminUser[0]?.id;
+    
     // Add fake alumni data for demonstration
+    const standardPassword = await bcrypt.hash('password123', 10);
+    let firstTwoUsers = [];
+    
     for (const alumni of alumniData) {
       try {
         // Find the course
@@ -232,16 +243,33 @@ async function initializeDatabase() {
           let userId;
           
           if (existingUsers.length === 0) {
-            // Create user with a dummy password (for demo purposes)
-            const hashedPassword = await bcrypt.hash('demopassword', 10);
+            // Create user with the standard password
             const [userResult] = await connection.query(
               'INSERT INTO users (email, password, role) VALUES (?, ?, ?)',
-              [alumni.contact_email, hashedPassword, 'registered_alumni']
+              [alumni.contact_email, standardPassword, alumni.role || 'registered_alumni']
             );
             
             userId = userResult.insertId;
+            
+            // Store first two registered alumni for messages
+            if (alumni.role === 'registered_alumni' && firstTwoUsers.length < 2) {
+              firstTwoUsers.push(userId);
+            }
           } else {
             userId = existingUsers[0].id;
+            
+            // Update the user's role if specified
+            if (alumni.role) {
+              await connection.query(
+                'UPDATE users SET role = ? WHERE id = ?',
+                [alumni.role, userId]
+              );
+            }
+            
+            // Check if this user should be in the first two users
+            if (alumni.role === 'registered_alumni' && firstTwoUsers.length < 2) {
+              firstTwoUsers.push(userId);
+            }
           }
           
           // Check if profile already exists
@@ -276,6 +304,67 @@ async function initializeDatabase() {
         }
       } catch (error) {
         console.error(`Error adding alumni ${alumni.first_name} ${alumni.last_name}:`, error);
+      }
+    }
+    
+    // Add events created by admin
+    if (adminId) {
+      for (const event of eventData) {
+        // Check if event already exists
+        const [existingEvents] = await connection.query(
+          'SELECT id FROM events WHERE title = ? AND event_date = ?',
+          [event.title, event.event_date]
+        );
+        
+        if (existingEvents.length === 0) {
+          // Event doesn't exist, insert it
+          await connection.query(
+            `INSERT INTO events (title, description, event_date, location, created_by) 
+             VALUES (?, ?, ?, ?, ?)`,
+            [
+              event.title,
+              event.description,
+              event.event_date,
+              event.location,
+              adminId
+            ]
+          );
+        }
+      }
+    }
+    
+    // Add messages between first two alumni
+    if (firstTwoUsers.length === 2) {
+      // Check if messages already exist
+      const [existingMessages] = await connection.query(
+        'SELECT id FROM messages WHERE sender_id = ? AND recipient_id = ?',
+        [firstTwoUsers[0], firstTwoUsers[1]]
+      );
+      
+      if (existingMessages.length === 0) {
+        // First message from user 1 to user 2
+        await connection.query(
+          `INSERT INTO messages (sender_id, recipient_id, subject, message) 
+           VALUES (?, ?, ?, ?)`,
+          [
+            firstTwoUsers[0],
+            firstTwoUsers[1],
+            'Alumni Event',
+            'Hey, it was great meeting you at the alumni event!'
+          ]
+        );
+        
+        // Reply from user 2 to user 1
+        await connection.query(
+          `INSERT INTO messages (sender_id, recipient_id, subject, message) 
+           VALUES (?, ?, ?, ?)`,
+          [
+            firstTwoUsers[1],
+            firstTwoUsers[0],
+            'Re: Alumni Event',
+            'Are you attending the next alumni meetup?'
+          ]
+        );
       }
     }
     

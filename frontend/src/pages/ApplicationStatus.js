@@ -38,7 +38,7 @@ const ApplicationStatus = () => {
       <div className="application-status">
         <div className="status-banner pending">
           <h3>Your application is pending approval</h3>
-          <p>Thank you for registering with Mediterranean College Alumni Portal. Your account is currently awaiting administrator approval. You will receive an email once your account has been approved.</p>
+          <p>Thank you for registering with Mediterranean College Alumni Portal. Your account is currently awaiting administrator approval. Thank you for your patience.</p>
         </div>
         
         {profile && (

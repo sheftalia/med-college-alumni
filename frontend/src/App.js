@@ -17,7 +17,7 @@ import AdminPanel from './pages/AdminPanel';
 import './App.css';
 
 const App = () => {
-  const { isLoggedIn, loading, user, isAppliedAlumni } = useContext(AuthContext);
+  const { isLoggedIn, loading, user, isAppliedAlumni, isAdmin } = useContext(AuthContext);
 
   // Custom private route component
   const PrivateRoute = ({ children, requiresProfile = true }) => {
@@ -47,7 +47,9 @@ const App = () => {
             path="/login" 
             element={
               isLoggedIn ? 
-                (isAppliedAlumni() ? <Navigate to="/application-status" /> : <Navigate to="/dashboard" />) 
+                (isAdmin() ? <Navigate to="/admin" /> : 
+                 isAppliedAlumni() ? <Navigate to="/application-status" /> : 
+                 <Navigate to="/dashboard" />) 
                 : <Login />
             } 
           />

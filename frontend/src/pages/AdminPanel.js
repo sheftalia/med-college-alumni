@@ -1,7 +1,10 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { getAllAlumni } from '../services/api';
+import React, { useState, useEffect } from 'react';
+import { getAllAlumni, updateUserRole, deleteUser } from '../services/api';
 import Loader from '../components/Loader';
 import SuccessMessage from '../components/SuccessMessage';
+import axios from 'axios';
+
+const API_URL = "http://localhost:5000/api";
 
 const AdminPanel = () => {
   const [alumni, setAlumni] = useState([]);
@@ -33,7 +36,7 @@ const AdminPanel = () => {
       fetchAlumni();
     } catch (error) {
       console.error('Failed to approve user:', error);
-      alert('Failed to approve user: ' + (error.message || 'Unknown error'));
+      alert('Failed to approve user: ' + (error.response?.data?.message || error.message));
     } finally {
       setLoading(false);
     }
@@ -48,47 +51,11 @@ const AdminPanel = () => {
         fetchAlumni();
       } catch (error) {
         console.error('Failed to delete user:', error);
-        alert('Failed to delete user: ' + (error.message || 'Unknown error'));
+        alert('Failed to delete user: ' + (error.response?.data?.message || error.message));
       } finally {
         setLoading(false);
       }
     }
-  };
-
-  // Helper function to update user role
-  const updateUserRole = async (userId, role) => {
-    const token = localStorage.getItem('token');
-    const response = await fetch('/api/alumni/role', {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
-      },
-      body: JSON.stringify({ userId, role })
-    });
-    
-    if (!response.ok) {
-      throw new Error('Failed to update user role');
-    }
-    
-    return await response.json();
-  };
-
-  // Helper function to delete user
-  const deleteUser = async (userId) => {
-    const token = localStorage.getItem('token');
-    const response = await fetch(`/api/alumni/${userId}`, {
-      method: 'DELETE',
-      headers: {
-        'Authorization': `Bearer ${token}`
-      }
-    });
-    
-    if (!response.ok) {
-      throw new Error('Failed to delete user');
-    }
-    
-    return await response.json();
   };
 
   const filteredAlumni = alumni.filter(alum => {

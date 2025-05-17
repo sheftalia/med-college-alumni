@@ -169,6 +169,26 @@ export const deleteEvent = async (id) => {
   }
 };
 
+export const updateUserRole = async (userId, role) => {
+  try {
+    const response = await api.put('/alumni/role', { userId, role });
+    return response.data;
+  } catch (error) {
+    console.error("Update user role error:", error.response?.data || error.message);
+    throw error;
+  }
+};
+
+export const deleteUser = async (userId) => {
+  try {
+    const response = await api.delete(`/alumni/${userId}`);
+    return response.data;
+  } catch (error) {
+    console.error("Delete user error:", error.response?.data || error.message);
+    throw error;
+  }
+};
+
 // Message Services
 export const getUserMessages = async () => {
   try {
