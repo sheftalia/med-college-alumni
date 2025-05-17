@@ -21,7 +21,6 @@ router.put('/role',
   updateAlumniRole
 );
 
-// Add the delete route for admins
 router.delete('/:id', 
   authenticateToken, 
   checkRole(['admin']), 

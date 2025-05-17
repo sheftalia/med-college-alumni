@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { getAllAlumni } from '../services/api';
 import Loader from '../components/Loader';
 import SuccessMessage from '../components/SuccessMessage';
@@ -57,11 +57,12 @@ const AdminPanel = () => {
 
   // Helper function to update user role
   const updateUserRole = async (userId, role) => {
+    const token = localStorage.getItem('token');
     const response = await fetch('/api/alumni/role', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${localStorage.getItem('token')}`
+        'Authorization': `Bearer ${token}`
       },
       body: JSON.stringify({ userId, role })
     });
@@ -75,10 +76,11 @@ const AdminPanel = () => {
 
   // Helper function to delete user
   const deleteUser = async (userId) => {
+    const token = localStorage.getItem('token');
     const response = await fetch(`/api/alumni/${userId}`, {
       method: 'DELETE',
       headers: {
-        'Authorization': `Bearer ${localStorage.getItem('token')}`
+        'Authorization': `Bearer ${token}`
       }
     });
     

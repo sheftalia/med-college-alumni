@@ -4,7 +4,7 @@ import { AuthContext } from '../context/AuthContext';
 import '../styles/Navbar.css';
 
 const Navbar = () => {
-  const { user, isLoggedIn, logout, isAdmin, isRegisteredAlumni } = useContext(AuthContext);
+  const { user, isLoggedIn, logout, isAdmin, isRegisteredAlumni, isAppliedAlumni } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -36,15 +36,14 @@ const Navbar = () => {
         {isLoggedIn && isAdmin() && (
           <>
             <li><Link to="/admin">Admin Panel</Link></li>
-            <li><Link to="/dashboard">Dashboard</Link></li>
             <li><Link to="/alumni">Alumni Directory</Link></li>
             <li><Link to="/events">Events</Link></li>
             <li><Link to="/messages">Messages</Link></li>
           </>
         )}
 
-        {isLoggedIn && !isRegisteredAlumni() && !isAdmin() && (
-          <li><Link to="/profile">Create Profile</Link></li>
+        {isLoggedIn && isAppliedAlumni() && (
+          <li><Link to="/application-status">Application Status</Link></li>
         )}
 
         {!isLoggedIn && (

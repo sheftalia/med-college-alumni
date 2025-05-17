@@ -129,6 +129,14 @@
   margin-bottom: 15px;
 }
 
+.school-image {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 5px 5px 0 0;
+  margin-bottom: 15px;
+}
+
 .view-alumni {
   display: inline-block;
   font-weight: 500;

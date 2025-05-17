@@ -1,5 +1,5 @@
 const alumniData = [
-  // Greek Names (92%) - 184 names
+  // REGISTERED ALUMNI (26)
   {
     first_name: "Georgios",
     last_name: "Papadopoulos",
@@ -9,10 +9,11 @@ const alumniData = [
     school: "School of Computing",
     bio: "Passionate about web development and AI. Currently working on several open source projects.",
     current_position: "Software Developer",
-    company: "TechSolutions Athens",
+    company: "Intrasoft International",
     contact_email: "georgios.p@example.com",
     phone: "+30 694 555 1001",
-    linkedin: "https://linkedin.com/in/georgiospap"
+    linkedin: "https://linkedin.com/in/georgiospap",
+    role: "registered_alumni"
   },
   {
     first_name: "Eleni",
@@ -23,10 +24,11 @@ const alumniData = [
     school: "Business School",
     bio: "Marketing specialist with a passion for digital strategies. Interested in brand development and consumer behavior.",
     current_position: "Marketing Coordinator",
-    company: "Hellenic Media Group",
+    company: "Antenna Group",
     contact_email: "eleni.a@example.com",
     phone: "+30 695 555 1002",
-    linkedin: "https://linkedin.com/in/elenialexiou"
+    linkedin: "https://linkedin.com/in/elenialexiou",
+    role: "registered_alumni"
   },
   {
     first_name: "Dimitris",
@@ -37,10 +39,11 @@ const alumniData = [
     school: "School of Health & Sport Sciences",
     bio: "Sports enthusiast and certified physiotherapist. Specializing in athletic injuries and rehabilitation.",
     current_position: "Physiotherapist",
-    company: "Athens Sports Clinic",
+    company: "Athens Medical Group",
     contact_email: "dimitris.v@example.com",
     phone: "+30 697 555 1003",
-    linkedin: "https://linkedin.com/in/dimitrisv"
+    linkedin: "https://linkedin.com/in/dimitrisv",
+    role: "registered_alumni"
   },
   {
     first_name: "Maria",
@@ -51,10 +54,11 @@ const alumniData = [
     school: "School of Psychology",
     bio: "Dedicated to helping people overcome addictive behaviors. Research interest in cognitive behavioral therapy.",
     current_position: "Psychologist",
-    company: "Mindful Therapy Center",
+    company: "Hygeia Hospital",
     contact_email: "maria.k@example.com",
     phone: "+30 698 555 1004",
-    linkedin: "https://linkedin.com/in/mariakyriakidou"
+    linkedin: "https://linkedin.com/in/mariakyriakidou",
+    role: "registered_alumni"
   },
   {
     first_name: "Nikos",
@@ -65,10 +69,11 @@ const alumniData = [
     school: "Business School",
     bio: "Business consultant with expertise in international markets. Passionate about startups and innovation.",
     current_position: "Business Development Manager",
-    company: "Global Ventures SA",
+    company: "Alpha Bank",
     contact_email: "nikos.a@example.com",
     phone: "+30 699 555 1005",
-    linkedin: "https://linkedin.com/in/nikosandreou"
+    linkedin: "https://linkedin.com/in/nikosandreou",
+    role: "registered_alumni"
   },
   {
     first_name: "Sofia",
@@ -79,10 +84,11 @@ const alumniData = [
     school: "School of Education",
     bio: "Passionate about early childhood development and creative learning methods. Advocate for inclusive education.",
     current_position: "Early Years Educator",
-    company: "Little Explorers Kindergarten",
+    company: "Campion School Athens",
     contact_email: "sofia.p@example.com",
     phone: "+30 694 555 1006",
-    linkedin: "https://linkedin.com/in/sofiapapanikolaou"
+    linkedin: "https://linkedin.com/in/sofiapapanikolaou",
+    role: "registered_alumni"
   },
   {
     first_name: "Andreas",
@@ -93,10 +99,11 @@ const alumniData = [
     school: "School of Engineering",
     bio: "Civil engineer with focus on sustainable construction methods. Interested in smart city development.",
     current_position: "Project Engineer",
-    company: "BuildTech Construction",
+    company: "AKTOR S.A.",
     contact_email: "andreas.n@example.com",
     phone: "+30 695 555 1007",
-    linkedin: "https://linkedin.com/in/andreasnikolaou"
+    linkedin: "https://linkedin.com/in/andreasnikolaou",
+    role: "registered_alumni"
   },
   {
     first_name: "Christina",
@@ -107,10 +114,11 @@ const alumniData = [
     school: "School of Tourism & Hospitality",
     bio: "Hospitality professional with experience in luxury hotels. Passionate about exceptional customer experiences.",
     current_position: "Hotel Manager",
-    company: "Athens Grand Resort",
+    company: "Costa Navarino Resort",
     contact_email: "christina.g@example.com",
     phone: "+30 697 555 1008",
-    linkedin: "https://linkedin.com/in/christinageorgiou"
+    linkedin: "https://linkedin.com/in/christinageorgiou",
+    role: "registered_alumni"
   },
   {
     first_name: "Panagiotis",
@@ -121,10 +129,11 @@ const alumniData = [
     school: "School of Computing",
     bio: "Cybersecurity specialist with a focus on network security and ethical hacking. CISSP certified.",
     current_position: "Security Analyst",
-    company: "CyberGuard Solutions",
+    company: "COSMOTE",
     contact_email: "panagiotis.a@example.com",
     phone: "+30 698 555 1009",
-    linkedin: "https://linkedin.com/in/panagiotisamtoniou"
+    linkedin: "https://linkedin.com/in/panagiotisamtoniou",
+    role: "registered_alumni"
   },
   {
     first_name: "Katerina",
@@ -135,10 +144,11 @@ const alumniData = [
     school: "School of Arts & Design",
     bio: "Fashion designer with a passion for sustainable fashion. Interested in integrating technology in textile design.",
     current_position: "Fashion Designer",
-    company: "EcoStyle Athens",
+    company: "Zeus+Dione",
     contact_email: "katerina.d@example.com",
     phone: "+30 699 555 1010",
-    linkedin: "https://linkedin.com/in/katerinadimitriou"
+    linkedin: "https://linkedin.com/in/katerinadimitriou",
+    role: "registered_alumni"
   },
   {
     first_name: "Vasilis",
@@ -149,10 +159,11 @@ const alumniData = [
     school: "School of Shipping",
     bio: "Maritime professional with experience in international shipping operations. Interested in sustainable shipping practices.",
     current_position: "Shipping Operations Manager",
-    company: "Hellenic Maritime Corp",
+    company: "Diana Shipping Inc.",
     contact_email: "vasilis.k@example.com",
     phone: "+30 694 555 1011",
-    linkedin: "https://linkedin.com/in/vasiliskonstantinou"
+    linkedin: "https://linkedin.com/in/vasiliskonstantinou",
+    role: "registered_alumni"
   },
   {
     first_name: "Ioanna",
@@ -163,10 +174,11 @@ const alumniData = [
     school: "School of Psychology",
     bio: "Clinical psychologist specializing in adolescent mental health. Advocate for mental health awareness.",
     current_position: "Clinical Psychologist",
-    company: "Athens Wellness Center",
+    company: "Metropolitan Hospital",
     contact_email: "ioanna.p@example.com",
     phone: "+30 695 555 1012",
-    linkedin: "https://linkedin.com/in/ioannapapadaki"
+    linkedin: "https://linkedin.com/in/ioannapapadaki",
+    role: "registered_alumni"
   },
   {
     first_name: "Kostas",
@@ -177,10 +189,11 @@ const alumniData = [
     school: "Business School",
     bio: "Digital marketing expert with focus on SEO and content marketing strategies. Google Analytics certified.",
     current_position: "Digital Marketing Specialist",
-    company: "DigiPromo Agency",
+    company: "Ogilvy Greece",
     contact_email: "kostas.t@example.com",
     phone: "+30 697 555 1013",
-    linkedin: "https://linkedin.com/in/kostastheodorou"
+    linkedin: "https://linkedin.com/in/kostastheodorou",
+    role: "registered_alumni"
   },
   {
     first_name: "Alexandra",
@@ -191,10 +204,11 @@ const alumniData = [
     school: "School of Education",
     bio: "TEFL educator with experience teaching English in diverse environments. Passionate about language acquisition methodologies.",
     current_position: "English Language Teacher",
-    company: "International Language School",
+    company: "British Council Athens",
     contact_email: "alexandra.m@example.com",
     phone: "+30 698 555 1014",
-    linkedin: "https://linkedin.com/in/alexandramarkopoulou"
+    linkedin: "https://linkedin.com/in/alexandramarkopoulou",
+    role: "registered_alumni"
   },
   {
     first_name: "Thanos",
@@ -205,10 +219,11 @@ const alumniData = [
     school: "School of Engineering",
     bio: "Mechanical engineer specializing in renewable energy systems. Passionate about sustainable technology solutions.",
     current_position: "Mechanical Engineer",
-    company: "GreenTech Innovations",
+    company: "Terna Energy",
     contact_email: "thanos.a@example.com",
     phone: "+30 699 555 1015",
-    linkedin: "https://linkedin.com/in/thanosantonopoulos"
+    linkedin: "https://linkedin.com/in/thanosantonopoulos",
+    role: "registered_alumni"
   },
   {
     first_name: "Evgenia",
@@ -219,10 +234,11 @@ const alumniData = [
     school: "School of Psychology",
     bio: "School psychologist focused on creating supportive educational environments. Interested in child development psychology.",
     current_position: "School Counselor",
-    company: "Athens International School",
+    company: "ACS Athens International School",
     contact_email: "evgenia.k@example.com",
     phone: "+30 694 555 1016",
-    linkedin: "https://linkedin.com/in/evgeniakoutsoukou"
+    linkedin: "https://linkedin.com/in/evgeniakoutsoukou",
+    role: "registered_alumni"
   },
   {
     first_name: "Stefanos",
@@ -233,10 +249,11 @@ const alumniData = [
     school: "School of Computing",
     bio: "Game developer with experience in Unity and Unreal Engine. Passionate about creating immersive gaming experiences.",
     current_position: "Game Developer",
-    company: "VirtualPlay Studios",
+    company: "Pollfish",
     contact_email: "stefanos.p@example.com",
     phone: "+30 695 555 1017",
-    linkedin: "https://linkedin.com/in/stefanospanagiotou"
+    linkedin: "https://linkedin.com/in/stefanospanagiotou",
+    role: "registered_alumni"
   },
   {
     first_name: "Danai",
@@ -247,10 +264,11 @@ const alumniData = [
     school: "Business School",
     bio: "HR professional specializing in talent acquisition and employee development. Certified in HR management.",
     current_position: "HR Specialist",
-    company: "Talent Solutions Group",
+    company: "Coca-Cola Hellas",
     contact_email: "danai.l@example.com",
     phone: "+30 697 555 1018",
-    linkedin: "https://linkedin.com/in/danailambrou"
+    linkedin: "https://linkedin.com/in/danailambrou",
+    role: "registered_alumni"
   },
   {
     first_name: "Alexis",
@@ -261,10 +279,11 @@ const alumniData = [
     school: "School of Tourism & Hospitality",
     bio: "Chef specializing in Mediterranean cuisine with a focus on modern techniques. Passionate about local ingredients.",
     current_position: "Head Chef",
-    company: "Mediterranean Gastronomy",
+    company: "Funky Gourmet",
     contact_email: "alexis.g@example.com",
     phone: "+30 698 555 1019",
-    linkedin: "https://linkedin.com/in/alexisgeorgiades"
+    linkedin: "https://linkedin.com/in/alexisgeorgiades",
+    role: "registered_alumni"
   },
   {
     first_name: "Athina",
@@ -275,10 +294,11 @@ const alumniData = [
     school: "School of Education",
     bio: "TESOL educator with experience in curriculum development. Passionate about innovative language teaching methodologies.",
     current_position: "Academic Coordinator",
-    company: "Athens Language Academy",
+    company: "Doukas School",
     contact_email: "athina.c@example.com",
     phone: "+30 699 555 1020",
-    linkedin: "https://linkedin.com/in/athinachristodoulou"
+    linkedin: "https://linkedin.com/in/athinachristodoulou",
+    role: "registered_alumni"
   },
   {
     first_name: "Ioannis",
@@ -289,10 +309,11 @@ const alumniData = [
     school: "School of Engineering",
     bio: "Architect specializing in sustainable design. Passionate about creating environmentally responsible buildings.",
     current_position: "Sustainable Design Architect",
-    company: "EcoArch Solutions",
+    company: "Tsolakis Architects",
     contact_email: "ioannis.m@example.com",
     phone: "+30 694 555 1021",
-    linkedin: "https://linkedin.com/in/ioannismakris"
+    linkedin: "https://linkedin.com/in/ioannismakris",
+    role: "registered_alumni"
   },
   {
     first_name: "Despina",
@@ -303,546 +324,27 @@ const alumniData = [
     school: "School of Psychology",
     bio: "Forensic psychologist with experience in criminal profiling. Research interests include criminal behavior analysis.",
     current_position: "Forensic Psychologist",
-    company: "Criminal Justice Services",
+    company: "Hellenic Police",
     contact_email: "despina.k@example.com",
     phone: "+30 695 555 1022",
-    linkedin: "https://linkedin.com/in/despinakatsarou"
+    linkedin: "https://linkedin.com/in/despinakatsarou",
+    role: "registered_alumni"
   },
   {
-    first_name: "Petros",
-    last_name: "Stavrou",
+    first_name: "Ahmed",
+    last_name: "El-Masri",
     gender: "male",
-    graduation_year: 2019,
-    course: "BA (Hons) Business Management (Finance)",
-    school: "Business School",
-    bio: "Finance professional specializing in investment analysis. CFA Level II candidate with interest in portfolio management.",
-    current_position: "Financial Analyst",
-    company: "Hellenic Investments",
-    contact_email: "petros.s@example.com",
-    phone: "+30 697 555 1023",
-    linkedin: "https://linkedin.com/in/petrosstavrou"
-  },
-  {
-    first_name: "Zoe",
-    last_name: "Anastasiadou",
-    gender: "female",
     graduation_year: 2021,
-    course: "MA Dramatherapy",
-    school: "School of Arts & Design",
-    bio: "Dramatherapist working with children and adolescents. Passionate about using creative arts in therapeutic settings.",
-    current_position: "Dramatherapist",
-    company: "Creative Therapy Center",
-    contact_email: "zoe.a@example.com",
-    phone: "+30 698 555 1024",
-    linkedin: "https://linkedin.com/in/zoeanastasiadou"
-  },
-  {
-    first_name: "Christos",
-    last_name: "Liakopoulos",
-    gender: "male",
-    graduation_year: 2020,
-    course: "BSc (Hons) Sports Science and Coaching",
-    school: "School of Health & Sport Sciences",
-    bio: "Sports scientist specializing in performance analysis. Experienced in working with professional athletes.",
-    current_position: "Performance Analyst",
-    company: "Elite Sports Performance",
-    contact_email: "christos.l@example.com",
-    phone: "+30 699 555 1025",
-    linkedin: "https://linkedin.com/in/christosliakopoulos"
-  },
-  {
-    first_name: "Eleftheria",
-    last_name: "Karamichali",
-    gender: "female",
-    graduation_year: 2022,
-    course: "MSc Integrative Counselling & Psychotherapy",
-    school: "School of Psychology",
-    bio: "Psychotherapist with a holistic approach to mental health. Specialized in anxiety and depression treatment.",
-    current_position: "Psychotherapist",
-    company: "Healing Minds Center",
-    contact_email: "eleftheria.k@example.com",
-    phone: "+30 694 555 1026",
-    linkedin: "https://linkedin.com/in/eleftheriakaramichali"
-  },
-  {
-    first_name: "Angelos",
-    last_name: "Kalogeropoulos",
-    gender: "male",
-    graduation_year: 2019,
-    course: "BA (Hons) Business Management (Supply Chain & Logistics)",
-    school: "Business School",
-    bio: "Logistics professional specializing in supply chain optimization. Experienced in implementing lean methodologies.",
-    current_position: "Supply Chain Manager",
-    company: "LogisticsPro SA",
-    contact_email: "angelos.k@example.com",
-    phone: "+30 695 555 1027",
-    linkedin: "https://linkedin.com/in/angeloskalogeropoulos"
-  },
-  {
-    first_name: "Ariadne",
-    last_name: "Papageorgiou",
-    gender: "female",
-    graduation_year: 2021,
-    course: "MA Inclusion and Special Educational Needs & Disability (ISEND)",
-    school: "School of Education",
-    bio: "Special education teacher dedicated to inclusive education practices. Advocate for children with learning differences.",
-    current_position: "Special Education Coordinator",
-    company: "Inclusive Learning Academy",
-    contact_email: "ariadne.p@example.com",
-    phone: "+30 697 555 1028",
-    linkedin: "https://linkedin.com/in/ariadnepapageorgiou"
-  },
-  {
-    first_name: "Leonidas",
-    last_name: "Michalopoulos",
-    gender: "male",
-    graduation_year: 2020,
     course: "MSc Big Data Analytics",
     school: "School of Computing",
-    bio: "Data analyst with expertise in predictive modeling. Passionate about using data science to solve business problems.",
+    bio: "Data scientist with expertise in machine learning and predictive analytics. Passionate about solving complex problems with data.",
     current_position: "Data Scientist",
-    company: "Analytics Innovators",
-    contact_email: "leonidas.m@example.com",
-    phone: "+30 698 555 1029",
-    linkedin: "https://linkedin.com/in/leonidasmichalopoulos"
+    company: "OTE Group",
+    contact_email: "ahmed.m@example.com",
+    phone: "+30 695 555 1128",
+    linkedin: "https://linkedin.com/in/ahmedelmasri",
+    role: "registered_alumni"
   },
-  {
-    first_name: "Anastasia",
-    last_name: "Economou",
-    gender: "female",
-    graduation_year: 2019,
-    course: "MA Leading Tourism & Hospitality: Event Management",
-    school: "School of Tourism & Hospitality",
-    bio: "Event manager with experience in organizing corporate and cultural events. Specialized in sustainable event planning.",
-    current_position: "Event Manager",
-    company: "Premier Events Athens",
-    contact_email: "anastasia.e@example.com",
-    phone: "+30 699 555 1030",
-    linkedin: "https://linkedin.com/in/anastasiaeconomou"
-  },
-  {
-    first_name: "Sotiris",
-    last_name: "Demetriou",
-    gender: "male",
-    graduation_year: 2021,
-    course: "BEng (Hons) Civil Engineering & Construction",
-    school: "School of Engineering",
-    bio: "Civil engineer specializing in infrastructure projects. Passionate about sustainable urban development.",
-    current_position: "Project Engineer",
-    company: "Urban Infrastructure Group",
-    contact_email: "sotiris.d@example.com",
-    phone: "+30 694 555 1031",
-    linkedin: "https://linkedin.com/in/sotirisdemetriou"
-  },
-  {
-    first_name: "Fotini",
-    last_name: "Xenaki",
-    gender: "female",
-    graduation_year: 2022,
-    course: "MSc Occupational Psychology",
-    school: "School of Psychology",
-    bio: "Occupational psychologist focusing on workplace wellbeing and organizational development. Experienced in employee assessment.",
-    current_position: "Organizational Development Consultant",
-    company: "Workplace Wellness Solutions",
-    contact_email: "fotini.x@example.com",
-    phone: "+30 695 555 1032",
-    linkedin: "https://linkedin.com/in/fotinixenaki"
-  },
-  {
-    first_name: "Michalis",
-    last_name: "Alexandris",
-    gender: "male",
-    graduation_year: 2020,
-    course: "BSc (Hons) Economics & Finance",
-    school: "Business School",
-    bio: "Financial economist with research interests in monetary policy and financial markets. Experienced in economic analysis.",
-    current_position: "Economic Analyst",
-    company: "Economic Research Institute",
-    contact_email: "michalis.a@example.com",
-    phone: "+30 697 555 1033",
-    linkedin: "https://linkedin.com/in/michalisalexandris"
-  },
-  {
-    first_name: "Konstantina",
-    last_name: "Papathanassiou",
-    gender: "female",
-    graduation_year: 2019,
-    course: "MA Educational Leadership & Management",
-    school: "School of Education",
-    bio: "Educational leader with experience in school administration. Passionate about educational innovation and reform.",
-    current_position: "School Principal",
-    company: "Athens Progressive School",
-    contact_email: "konstantina.p@example.com",
-    phone: "+30 698 555 1034",
-    linkedin: "https://linkedin.com/in/konstantinapapathanassiou"
-  },
-  {
-    first_name: "Giorgos",
-    last_name: "Karras",
-    gender: "male",
-    graduation_year: 2021,
-    course: "MSc Cyber Security",
-    school: "School of Computing",
-    bio: "Cybersecurity expert with focus on penetration testing and vulnerability assessment. OSCP certified professional.",
-    current_position: "Security Consultant",
-    company: "Digital Defense Solutions",
-    contact_email: "giorgos.k@example.com",
-    phone: "+30 699 555 1035",
-    linkedin: "https://linkedin.com/in/giorgoskarras"
-  },
-  {
-    first_name: "Stella",
-    last_name: "Sotiriou",
-    gender: "female",
-    graduation_year: 2020,
-    course: "BA (Hons) Marketing, PR & Advertising",
-    school: "Business School",
-    bio: "Marketing communications specialist with experience in brand management. Passionate about strategic brand storytelling.",
-    current_position: "Brand Manager",
-    company: "Creative Brand Agency",
-    contact_email: "stella.s@example.com",
-    phone: "+30 694 555 1036",
-    linkedin: "https://linkedin.com/in/stellasotiriou"
-  },
-  {
-    first_name: "Theodoros",
-    last_name: "Christopoulos",
-    gender: "male",
-    graduation_year: 2022,
-    course: "MSc Strength and Conditioning",
-    school: "School of Health & Sport Sciences",
-    bio: "Strength and conditioning coach with experience training professional athletes. Specialized in injury prevention.",
-    current_position: "Performance Coach",
-    company: "Elite Athletic Performance",
-    contact_email: "theodoros.c@example.com",
-    phone: "+30 695 555 1037",
-    linkedin: "https://linkedin.com/in/theodoroschristopoulos"
-  },
-  {
-    first_name: "Helena",
-    last_name: "Mavromati",
-    gender: "female",
-    graduation_year: 2019,
-    course: "BA (Hons) International Hospitality Management",
-    school: "School of Tourism & Hospitality",
-    bio: "Hospitality manager with experience in luxury hotel operations. Specialized in customer experience enhancement.",
-    current_position: "Operations Manager",
-    company: "Luxe Hospitality Group",
-    contact_email: "helena.m@example.com",
-    phone: "+30 697 555 1038",
-    linkedin: "https://linkedin.com/in/helenamavromati"
-  },
-  {
-    first_name: "Pavlos",
-    last_name: "Athanasiou",
-    gender: "male",
-    graduation_year: 2020,
-    course: "MSc Renewable Energy Engineering",
-    school: "School of Engineering",
-    bio: "Renewable energy engineer specializing in solar power systems. Passionate about clean energy solutions.",
-    current_position: "Solar Energy Consultant",
-    company: "Hellenic Renewables",
-    contact_email: "pavlos.a@example.com",
-    phone: "+30 698 555 1039",
-    linkedin: "https://linkedin.com/in/pavlosathanasiou"
-  },
-  {
-    first_name: "Melina",
-    last_name: "Ioannidou",
-    gender: "female",
-    graduation_year: 2021,
-    course: "MSc Applied Psychology: Health Psychology and Counselling",
-    school: "School of Psychology",
-    bio: "Health psychologist focusing on stress management and wellness promotion. Experienced in therapeutic counseling.",
-    current_position: "Health & Wellness Psychologist",
-    company: "Wellness Psychology Center",
-    contact_email: "melina.i@example.com",
-    phone: "+30 699 555 1040",
-    linkedin: "https://linkedin.com/in/melinaioannidou"
-  },
-  {
-    first_name: "Spyros",
-    last_name: "Vlachos",
-    gender: "male",
-    graduation_year: 2020,
-    course: "BA (Hons) Business Management (Human Resource Management)",
-    school: "Business School",
-    bio: "HR professional specializing in employee relations and organizational development. Certified in HR management.",
-    current_position: "HR Business Partner",
-    company: "Corporate Solutions Group",
-    contact_email: "spyros.v@example.com",
-    phone: "+30 694 555 1041",
-    linkedin: "https://linkedin.com/in/spyrosvlachos"
-  },
-  {
-    first_name: "Dimitra",
-    last_name: "Nikiforou",
-    gender: "female",
-    graduation_year: 2019,
-    course: "MA Leading Tourism and Hospitality: Luxury Management & Guest Experience",
-    school: "School of Tourism & Hospitality",
-    bio: "Luxury hospitality specialist with experience in high-end guest services. Passionate about creating exceptional experiences.",
-    current_position: "Guest Experience Manager",
-    company: "Exclusive Resorts Collection",
-    contact_email: "dimitra.n@example.com",
-    phone: "+30 695 555 1042",
-    linkedin: "https://linkedin.com/in/dimitranikiforou"
-  },
-  {
-    first_name: "Alexandros",
-    last_name: "Kouris",
-    gender: "male",
-    graduation_year: 2022,
-    course: "BSc (Hons) Computer Science",
-    school: "School of Computing",
-    bio: "Software engineer specializing in backend development. Passionate about cloud computing and microservices architecture.",
-    current_position: "Backend Developer",
-    company: "CloudTech Solutions",
-    contact_email: "alexandros.k@example.com",
-    phone: "+30 697 555 1043",
-    linkedin: "https://linkedin.com/in/alexandroskouris"
-  },
-  {
-    first_name: "Georgia",
-    last_name: "Papachristou",
-    gender: "female",
-    graduation_year: 2021,
-    course: "MSc Marketing Management",
-    school: "Business School",
-    bio: "Marketing strategist with experience in digital marketing campaigns. Specialized in consumer behavior analysis.",
-    current_position: "Marketing Manager",
-    company: "Strategic Marketing Partners",
-    contact_email: "georgia.p@example.com",
-    phone: "+30 698 555 1044",
-    linkedin: "https://linkedin.com/in/georgiapapachristou"
-  },
-  {
-    first_name: "Filippos",
-    last_name: "Dimopoulos",
-    gender: "male",
-    graduation_year: 2020,
-    course: "BA (Hons) Business Management (Shipping)",
-    school: "School of Shipping",
-    bio: "Shipping professional with expertise in maritime logistics. Experienced in vessel operations management.",
-    current_position: "Operations Analyst",
-    company: "Mediterranean Shipping Company",
-    contact_email: "filippos.d@example.com",
-    phone: "+30 699 555 1045",
-    linkedin: "https://linkedin.com/in/filipposdimopoulos"
-  },
-  {
-    first_name: "Marina",
-    last_name: "Panagopoulou",
-    gender: "female",
-    graduation_year: 2019,
-    course: "MSc Applied Psychology: Clinical Psychology and Counselling",
-    school: "School of Psychology",
-    bio: "Clinical psychologist specializing in cognitive behavioral therapy for anxiety disorders. Passionate about mental health education.",
-    current_position: "Clinical Psychologist",
-    company: "Mental Wellness Clinic",
-    contact_email: "marina.p@example.com",
-    phone: "+30 694 555 1046",
-    linkedin: "https://linkedin.com/in/marinapanagopoulou"
-  },
-  {
-    first_name: "Stavros",
-    last_name: "Galanos",
-    gender: "male",
-    graduation_year: 2021,
-    course: "MEng Mechanical Engineering & Design",
-    school: "School of Engineering",
-    bio: "Mechanical engineer specializing in product design and development. Experienced in CAD/CAM technologies.",
-    current_position: "Design Engineer",
-    company: "InnovaTech Engineering",
-    contact_email: "stavros.g@example.com",
-    phone: "+30 695 555 1047",
-    linkedin: "https://linkedin.com/in/stavrosgalanos"
-  },
-  {
-    first_name: "Artemis",
-    last_name: "Drakopoulou",
-    gender: "female",
-    graduation_year: 2022,
-    course: "BA (Hons) Early Childhood Studies",
-    school: "School of Education",
-    bio: "Early childhood educator focusing on play-based learning approaches. Passionate about child-centered education.",
-    current_position: "Early Years Coordinator",
-    company: "Young Minds Learning Center",
-    contact_email: "artemis.d@example.com",
-    phone: "+30 697 555 1048",
-    linkedin: "https://linkedin.com/in/artemisdrakopoulou"
-  },
-  {
-    first_name: "Konstantinos",
-    last_name: "Lambropoulos",
-    gender: "male",
-    graduation_year: 2020,
-    course: "MSc Digital Marketing",
-    school: "Business School",
-    bio: "Digital marketing strategist specializing in social media and content marketing. Experienced in performance marketing.",
-    current_position: "Digital Strategy Consultant",
-    company: "Digital Growth Partners",
-    contact_email: "konstantinos.l@example.com",
-    phone: "+30 698 555 1049",
-    linkedin: "https://linkedin.com/in/konstantinoslambropoulos"
-  },
-  {
-    first_name: "Natalia",
-    last_name: "Kyriakidis",
-    gender: "female",
-    graduation_year: 2019,
-    course: "Professional Doctorate Counselling Psychology",
-    school: "School of Psychology",
-    bio: "Counseling psychologist specializing in trauma-informed therapy. Research interests include resilience and post-traumatic growth.",
-    current_position: "Lead Psychologist",
-    company: "Healing Pathways Center",
-    contact_email: "natalia.k@example.com",
-    phone: "+30 699 555 1050",
-    linkedin: "https://linkedin.com/in/nataliakyriakidis"
-  },
-  {
-    first_name: "Dimitrios",
-    last_name: "Apostolou",
-    gender: "male",
-    graduation_year: 2021,
-    course: "BSc (Hons) Computer Games Programming",
-    school: "School of Computing",
-    bio: "Game programmer with expertise in Unity and C#. Passionate about procedural generation and AI in games.",
-    current_position: "Game Developer",
-    company: "Digital Dreams Studios",
-    contact_email: "dimitrios.a@example.com",
-    phone: "+30 694 555 1051",
-    linkedin: "https://linkedin.com/in/dimitriosapostolou"
-  },
-  {
-    first_name: "Eirini",
-    last_name: "Papadimitriou",
-    gender: "female",
-    graduation_year: 2020,
-    course: "MBA Global Finance",
-    school: "Business School",
-    bio: "Finance professional specializing in corporate finance and investment analysis. CFA charterholder.",
-    current_position: "Investment Analyst",
-    company: "Capital Management Group",
-    contact_email: "eirini.p@example.com",
-    phone: "+30 695 555 1052",
-    linkedin: "https://linkedin.com/in/eirinipapadimitriou"
-  },
-  {
-    first_name: "Kyriakos",
-    last_name: "Tzavaras",
-    gender: "male",
-    graduation_year: 2022,
-    course: "MSc Civil Engineering and Construction",
-    school: "School of Engineering",
-    bio: "Civil engineer specializing in seismic design and structural analysis. Passionate about innovative construction techniques.",
-    current_position: "Structural Engineer",
-    company: "BuildSafe Engineering",
-    contact_email: "kyriakos.t@example.com",
-    phone: "+30 697 555 1053",
-    linkedin: "https://linkedin.com/in/kyriakostzavaras"
-  },
-  {
-    first_name: "Olga",
-    last_name: "Petridou",
-    gender: "female",
-    graduation_year: 2019,
-    course: "BA (Hons) Fashion Design & Marketing",
-    school: "School of Arts & Design",
-    bio: "Fashion designer with focus on sustainable and ethical fashion. Experienced in textile design and production.",
-    current_position: "Fashion Designer",
-    company: "Sustainable Style Collective",
-    contact_email: "olga.p@example.com",
-    phone: "+30 698 555 1054",
-    linkedin: "https://linkedin.com/in/olgapetridou"
-  },
-  {
-    first_name: "Nikolas",
-    last_name: "Vassilakis",
-    gender: "male",
-    graduation_year: 2020,
-    course: "BSc (Hons) Sports Science and Coaching",
-    school: "School of Health & Sport Sciences",
-    bio: "Sports scientist specializing in athletic performance enhancement. Experienced in training methodologies and biomechanics.",
-    current_position: "Performance Coach",
-    company: "Elite Athletic Training",
-    contact_email: "nikolas.v@example.com",
-    phone: "+30 699 555 1055",
-    linkedin: "https://linkedin.com/in/nikolasvassilakis"
-  },
-  // Albanian Names (2.5%) - 5 names
-  {
-    first_name: "Arben",
-    last_name: "Hoxha",
-    gender: "male",
-    graduation_year: 2021,
-    course: "BSc (Hons) Computer Science",
-    school: "School of Computing",
-    bio: "Software developer with expertise in mobile applications. Open source contributor and tech community organizer.",
-    current_position: "Mobile Developer",
-    company: "AppSphere Tech",
-    contact_email: "arben.h@example.com",
-    phone: "+30 695 555 1120",
-    linkedin: "https://linkedin.com/in/arbenhoxha"
-  },
-  {
-    first_name: "Elira",
-    last_name: "Basha",
-    gender: "female",
-    graduation_year: 2020,
-    course: "BA (Hons) Business Management (Marketing)",
-    school: "Business School",
-    bio: "Marketing professional with a focus on digital campaigns. Passionate about brand storytelling and social media strategies.",
-    current_position: "Marketing Specialist",
-    company: "Creative Minds Agency",
-    contact_email: "elira.b@example.com",
-    phone: "+30 697 555 1121",
-    linkedin: "https://linkedin.com/in/elirabasha"
-  },
-  {
-    first_name: "Blerim",
-    last_name: "Krasniqi",
-    gender: "male",
-    graduation_year: 2019,
-    course: "BSc (Hons) Civil Engineering & Construction",
-    school: "School of Engineering",
-    bio: "Civil engineer specializing in urban infrastructure. Experienced in transportation planning and traffic engineering.",
-    current_position: "Infrastructure Engineer",
-    company: "Urban Planning Associates",
-    contact_email: "blerim.k@example.com",
-    phone: "+30 698 555 1122",
-    linkedin: "https://linkedin.com/in/blerimkrasniqi"
-  },
-  {
-    first_name: "Anila",
-    last_name: "Shehu",
-    gender: "female",
-    graduation_year: 2022,
-    course: "MSc Applied Psychology: Clinical Psychology and Counselling",
-    school: "School of Psychology",
-    bio: "Clinical psychologist specializing in multicultural therapy approaches. Interested in trauma-informed care and resilience.",
-    current_position: "Clinical Psychologist",
-    company: "Multicultural Counseling Center",
-    contact_email: "anila.s@example.com",
-    phone: "+30 699 555 1123",
-    linkedin: "https://linkedin.com/in/anilashehu"
-  },
-  {
-    first_name: "Dritan",
-    last_name: "Berisha",
-    gender: "male",
-    graduation_year: 2020,
-    course: "MBA Global",
-    school: "Business School",
-    bio: "Business strategist with experience in international markets. Focused on business development and growth strategies.",
-    current_position: "Business Development Manager",
-    company: "Global Business Consultants",
-    contact_email: "dritan.b@example.com",
-    phone: "+30 694 555 1124",
-    linkedin: "https://linkedin.com/in/dritanberisha"
-  },
-  
-  // Georgian Names (1%) - 2 names
   {
     first_name: "Giorgi",
     last_name: "Maisuradze",
@@ -852,160 +354,87 @@ const alumniData = [
     school: "School of Computing",
     bio: "Cybersecurity expert specializing in threat intelligence and security architecture. CISSP and CEH certified.",
     current_position: "Information Security Analyst",
-    company: "SecureNet Solutions",
+    company: "Piraeus Bank",
     contact_email: "giorgi.m@example.com",
     phone: "+30 698 555 1125",
-    linkedin: "https://linkedin.com/in/giorgimaisuradze"
+    linkedin: "https://linkedin.com/in/giorgimaisuradze",
+    role: "registered_alumni"
   },
   {
-    first_name: "Tamara",
-    last_name: "Kharatishvili",
-    gender: "female",
-    graduation_year: 2022,
-    course: "MSc Applied Psychology: Health Psychology and Counselling",
-    school: "School of Psychology",
-    bio: "Health psychologist focused on stress management and wellness counseling. Conducts research on psychosomatic disorders.",
-    current_position: "Health Psychologist",
-    company: "Wellness & Health Center",
-    contact_email: "tamara.k@example.com",
-    phone: "+30 699 555 1126",
-    linkedin: "https://linkedin.com/in/tamarakharatishvili"
-  },
-  
-  // Armenian Names (0.5%) - 1 name
-  {
-    first_name: "Hayk",
-    last_name: "Sargsyan",
-    gender: "male",
-    graduation_year: 2020,
-    course: "MSc Renewable Energy Engineering",
-    school: "School of Engineering",
-    bio: "Renewable energy engineer specializing in solar power systems. Passionate about sustainable energy solutions.",
-    current_position: "Renewable Energy Consultant",
-    company: "EcoEnergy Solutions",
-    contact_email: "hayk.s@example.com",
-    phone: "+30 694 555 1127",
-    linkedin: "https://linkedin.com/in/hayksargsyan"
-  },
-  
-  // Arab Names (2.5%) - 5 names
-  {
-    first_name: "Ahmed",
-    last_name: "Al-Masri",
+    first_name: "Arben",
+    last_name: "Hoxha",
     gender: "male",
     graduation_year: 2021,
-    course: "MSc Big Data Analytics",
-    school: "School of Computing",
-    bio: "Data scientist with expertise in machine learning and predictive analytics. Passionate about solving complex problems with data.",
-    current_position: "Data Scientist",
-    company: "DataDrive Analytics",
-    contact_email: "ahmed.m@example.com",
-    phone: "+30 695 555 1128",
-    linkedin: "https://linkedin.com/in/ahmedalmasri"
-  },
-  {
-    first_name: "Layla",
-    last_name: "Hakim",
-    gender: "female",
-    graduation_year: 2019,
-    course: "BA (Hons) International Hospitality Management",
-    school: "School of Tourism & Hospitality",
-    bio: "Hospitality professional with experience in luxury hotel management. Specialized in guest experience optimization.",
-    current_position: "Guest Relations Manager",
-    company: "Luxury Resorts & Spas",
-    contact_email: "layla.h@example.com",
-    phone: "+30 697 555 1129",
-    linkedin: "https://linkedin.com/in/laylahakim"
-  },
-  {
-    first_name: "Omar",
-    last_name: "Khalil",
-    gender: "male",
-    graduation_year: 2020,
-    course: "BEng (Hons) Mechanical Engineering & Design",
-    school: "School of Engineering",
-    bio: "Mechanical engineer specializing in HVAC systems and energy efficiency. Passionate about sustainable building design.",
-    current_position: "HVAC Engineer",
-    company: "Sustainable Building Systems",
-    contact_email: "omar.k@example.com",
-    phone: "+30 698 555 1130",
-    linkedin: "https://linkedin.com/in/omarkhalil"
-  },
-  {
-    first_name: "Nadia",
-    last_name: "El-Said",
-    gender: "female",
-    graduation_year: 2021,
-    course: "MSc Human Resource Management",
-    school: "Business School",
-    bio: "HR professional focusing on diversity and inclusion strategies. Experienced in cross-cultural workplace development.",
-    current_position: "HR Specialist",
-    company: "Global Workforce Solutions",
-    contact_email: "nadia.e@example.com",
-    phone: "+30 699 555 1131",
-    linkedin: "https://linkedin.com/in/nadiaelsaid"
-  },
-  {
-    first_name: "Youssef",
-    last_name: "Ibrahim",
-    gender: "male",
-    graduation_year: 2022,
     course: "BSc (Hons) Computer Science",
     school: "School of Computing",
-    bio: "Software developer with focus on web applications and cloud architecture. Experienced in backend technologies.",
-    current_position: "Backend Developer",
-    company: "Cloud Solutions Inc.",
-    contact_email: "youssef.i@example.com",
-    phone: "+30 694 555 1132",
-    linkedin: "https://linkedin.com/in/youssefibrahim"
+    bio: "Software developer with expertise in mobile applications. Open source contributor and tech community organizer.",
+    current_position: "Mobile Developer",
+    company: "Beat",
+    contact_email: "arben.h@example.com",
+    phone: "+30 695 555 1120",
+    linkedin: "https://linkedin.com/in/arbenhoxha",
+    role: "registered_alumni"
   },
-  
-  // Sub-Saharan African Names (0.5%) - 1 name
+  // APPLIED ALUMNI (4)
   {
-    first_name: "Kofi",
-    last_name: "Mensah",
+    first_name: "Christos",
+    last_name: "Mavrakis",
+    gender: "male",
+    graduation_year: 2023,
+    course: "BSc (Hons) Computer Science",
+    school: "School of Computing",
+    bio: "Recent graduate interested in AI and machine learning. Looking for opportunities in the tech industry.",
+    current_position: "Graduate",
+    company: "",
+    contact_email: "christos.m@example.com",
+    phone: "+30 694 555 2001",
+    linkedin: "https://linkedin.com/in/christosmavrakis",
+    role: "applied_alumni"
+  },
+  {
+    first_name: "Anastasia",
+    last_name: "Nikolaidou",
+    gender: "female",
+    graduation_year: 2023,
+    course: "BA (Hons) Business Management",
+    school: "Business School",
+    bio: "Business administration graduate with interest in project management. Certified in PRINCE2 methodology.",
+    current_position: "Junior Project Manager",
+    company: "Forthnet",
+    contact_email: "anastasia.n@example.com",
+    phone: "+30 695 555 2002",
+    linkedin: "https://linkedin.com/in/anastasianikolaidou",
+    role: "applied_alumni"
+  },
+  {
+    first_name: "Stavros",
+    last_name: "Michalopoulos",
     gender: "male",
     graduation_year: 2022,
-    course: "MBA Global Finance",
-    school: "Business School",
-    bio: "Finance professional with expertise in international markets. Passionate about financial inclusion and microfinance.",
-    current_position: "Financial Analyst",
-    company: "Global Financial Partners",
-    contact_email: "kofi.m@example.com",
-    phone: "+30 698 555 1134",
-    linkedin: "https://linkedin.com/in/kofimensah"
-  },
-  
-  // Polish Names (0.5%) - 1 name
-  {
-    first_name: "Agnieszka",
-    last_name: "Kowalska",
-    gender: "female",
-    graduation_year: 2020,
-    course: "MSc Applied Psychology: Clinical Psychology and Counselling",
-    school: "School of Psychology",
-    bio: "Clinical psychologist specializing in cognitive-behavioral therapy. Research interests include anxiety disorders and trauma therapy.",
-    current_position: "Clinical Psychologist",
-    company: "Psychological Services Center",
-    contact_email: "agnieszka.k@example.com",
-    phone: "+30 699 555 1135",
-    linkedin: "https://linkedin.com/in/agnieszkakowalska"
-  },
-  
-  // Russian Names (0.5%) - 1 name
-  {
-    first_name: "Sergei",
-    last_name: "Petrov",
-    gender: "male",
-    graduation_year: 2019,
     course: "MSc Mechanical Engineering and Design",
     school: "School of Engineering",
-    bio: "Mechanical engineer specializing in aerospace applications. Passionate about innovation in transportation systems.",
+    bio: "Mechanical engineer with focus on automotive design. Experience in CAD/CAM technologies and 3D printing.",
     current_position: "Design Engineer",
-    company: "Advanced Engineering Solutions",
-    contact_email: "sergei.p@example.com",
-    phone: "+30 694 555 1136",
-    linkedin: "https://linkedin.com/in/sergeipetrov"
+    company: "Aegean Airlines",
+    contact_email: "stavros.m@example.com",
+    phone: "+30 697 555 2003",
+    linkedin: "https://linkedin.com/in/stavrosmichalopoulos",
+    role: "applied_alumni"
+  },
+  {
+    first_name: "Efthymia",
+    last_name: "Papadopoulou",
+    gender: "female",
+    graduation_year: 2023,
+    course: "MSc Psychology of Addictions and Behavioural Change",
+    school: "School of Psychology",
+    bio: "Psychology graduate specializing in addiction therapy. Interested in research on cognitive behavioral therapies.",
+    current_position: "Intern Psychologist",
+    company: "Dromokaiteio Psychiatric Hospital",
+    contact_email: "efthymia.p@example.com",
+    phone: "+30 698 555 2004",
+    linkedin: "https://linkedin.com/in/efthymiapapadopoulou",
+    role: "applied_alumni"
   }
 ];
 

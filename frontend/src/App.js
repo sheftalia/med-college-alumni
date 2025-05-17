@@ -10,13 +10,14 @@ import Events from './pages/Events';
 import Messages from './pages/Messages';
 import AlumniDirectory from './pages/AlumniDirectory';
 import NotFound from './pages/NotFound';
-import AdminPanel from './pages/AdminPanel';
 import Navbar from './components/Navbar';
 import Loader from './components/Loader';
+import ApplicationStatus from './pages/ApplicationStatus';
+import AdminPanel from './pages/AdminPanel';
 import './App.css';
 
 const App = () => {
-  const { isLoggedIn, loading, user } = useContext(AuthContext);
+  const { isLoggedIn, loading, user, isAppliedAlumni } = useContext(AuthContext);
 
   // Custom private route component
   const PrivateRoute = ({ children, requiresProfile = true }) => {
@@ -28,8 +29,8 @@ const App = () => {
       return <Navigate to="/login" />;
     }
     
-    if (requiresProfile && user?.role === 'applied_alumni') {
-      return <Navigate to="/profile" />;
+    if (requiresProfile && isAppliedAlumni()) {
+      return <Navigate to="/application-status" />;
     }
     
     return children;
@@ -41,8 +42,20 @@ const App = () => {
       <main className="main-content">
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/login" element={isLoggedIn ? <Navigate to="/dashboard" /> : <Login />} />
-          <Route path="/register" element={isLoggedIn ? <Navigate to="/dashboard" /> : <Register />} />
+          
+          <Route 
+            path="/login" 
+            element={
+              isLoggedIn ? 
+                (isAppliedAlumni() ? <Navigate to="/application-status" /> : <Navigate to="/dashboard" />) 
+                : <Login />
+            } 
+          />
+          
+          <Route 
+            path="/register" 
+            element={isLoggedIn ? <Navigate to="/dashboard" /> : <Register />} 
+          />
 
           {/* Profile page - accessible to all logged in users */}
           <Route 
@@ -50,6 +63,26 @@ const App = () => {
             element={
               <PrivateRoute requiresProfile={false}>
                 <Profile />
+              </PrivateRoute>
+            } 
+          />
+          
+          {/* Application Status for applied alumni */}
+          <Route 
+            path="/application-status" 
+            element={
+              <PrivateRoute requiresProfile={false}>
+                <ApplicationStatus />
+              </PrivateRoute>
+            } 
+          />
+          
+          {/* Admin Panel */}
+          <Route 
+            path="/admin" 
+            element={
+              <PrivateRoute>
+                <AdminPanel />
               </PrivateRoute>
             } 
           />
@@ -96,15 +129,6 @@ const App = () => {
             element={
               <PrivateRoute>
                 <Dashboard />
-              </PrivateRoute>
-            } 
-          />
-
-          <Route 
-            path="/admin" 
-            element={
-              <PrivateRoute>
-                <AdminPanel />
               </PrivateRoute>
             } 
           />

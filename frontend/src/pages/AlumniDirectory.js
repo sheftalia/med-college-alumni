@@ -55,7 +55,10 @@ const AlumniDirectory = () => {
       const alumniData = await getAllAlumni();
       const schoolsData = await getSchoolsAndCourses();
       
-      setAlumni(alumniData.alumni || []);
+      // Filter out applied alumni
+      const registeredAlumni = alumniData.alumni.filter(alum => alum.role === 'registered_alumni');
+      
+      setAlumni(registeredAlumni || []);
       setSchools(schoolsData.schools || []);
       setCourses(schoolsData.courses || []);
     } catch (error) {
