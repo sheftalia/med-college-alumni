@@ -9,11 +9,11 @@ async function getAllAlumni(req, res) {
     const { school, course, graduationYear, name } = req.query;
     
     let query = `
-      SELECT ap.*, u.email, u.role, c.name as course_name, s.name as school_name 
-      FROM alumni_profiles ap
-      JOIN users u ON ap.user_id = u.id
-      JOIN courses c ON ap.course_id = c.id
-      JOIN schools s ON c.school_id = s.id
+      SELECT ap.*, u.id as user_id, u.email, u.role, c.name as course_name, s.name as school_name 
+      FROM users u
+      LEFT JOIN alumni_profiles ap ON u.id = ap.user_id
+      LEFT JOIN courses c ON ap.course_id = c.id
+      LEFT JOIN schools s ON c.school_id = s.id
       WHERE 1=1
     `;
     

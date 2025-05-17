@@ -17,6 +17,7 @@ const AdminPanel = () => {
     try {
       setLoading(true);
       const response = await getAllAlumni();
+      console.log('Fetched alumni:', response.alumni); // Add logging
       setAlumni(response.alumni || []);
     } catch (error) {
       console.error('Failed to fetch alumni:', error);
@@ -98,7 +99,7 @@ const AdminPanel = () => {
         {filteredAlumni.length > 0 ? (
           filteredAlumni.map((alum) => (
             <div 
-              key={alum.id} 
+              key={alum.id || alum.user_id} 
               style={{ 
                 backgroundColor: 'white', 
                 borderRadius: '8px', 
@@ -110,26 +111,30 @@ const AdminPanel = () => {
               }}
             >
               <div>
-                <h3 style={{ margin: '0 0 10px 0' }}>{alum.first_name} {alum.last_name}</h3>
+                <h3 style={{ margin: '0 0 10px 0' }}>
+                  {alum.first_name && alum.last_name ? 
+                    `${alum.first_name} ${alum.last_name}` : 
+                    'New User'}
+                </h3>
                 <p><strong>Email:</strong> {alum.email}</p>
                 <p><strong>Role:</strong> {alum.role}</p>
                 {alum.course_name && (
                   <p><strong>Course:</strong> {alum.course_name}</p>
                 )}
               </div>
-              
+        
               <div style={{ display: 'flex', gap: '10px' }}>
                 {alum.role === 'applied_alumni' && (
                   <button 
-                    onClick={() => handleApprove(alum.user_id)}
+                    onClick={() => handleApprove(alum.user_id || alum.id)}
                     className="secondary-button"
                   >
                     Approve
                   </button>
                 )}
-                
+          
                 <button 
-                  onClick={() => handleDelete(alum.user_id)}
+                  onClick={() => handleDelete(alum.user_id || alum.id)}
                   style={{ 
                     backgroundColor: '#d32f2f', 
                     color: 'white',
