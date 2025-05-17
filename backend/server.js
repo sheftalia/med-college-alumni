@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const express = require('express');
 const cors = require('cors');
 const authRoutes = require('./routes/authRoutes');
@@ -6,7 +8,6 @@ const profileRoutes = require('./routes/profileRoutes');
 const eventRoutes = require('./routes/eventRoutes');
 const messageRoutes = require('./routes/messageRoutes');
 const { initializeDatabase } = require('./config/database');
-require('dotenv').config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;

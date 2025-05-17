@@ -10,7 +10,7 @@ const bcrypt = require('bcryptjs');
 const dbConfig = {
   host: process.env.DB_HOST || 'localhost',
   user: process.env.DB_USER || 'root',
-  password: process.env.DB_PASSWORD || 'donkument', //hardcoded password
+  password: process.env.DB_PASSWORD || '',
   database: process.env.DB_NAME || 'med_college_alumni'
 };
 
