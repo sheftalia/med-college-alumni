@@ -2,7 +2,8 @@ const express = require('express');
 const { 
   getAllAlumni, 
   getAlumniById, 
-  updateAlumniRole 
+  updateAlumniRole,
+  deleteAlumni 
 } = require('../controllers/alumniController');
 const { authenticateToken } = require('../middleware/auth');
 const { checkRole } = require('../middleware/roleCheck');
@@ -18,6 +19,13 @@ router.put('/role',
   authenticateToken, 
   checkRole(['admin']), 
   updateAlumniRole
+);
+
+// Add the delete route for admins
+router.delete('/:id', 
+  authenticateToken, 
+  checkRole(['admin']), 
+  deleteAlumni
 );
 
 module.exports = router;

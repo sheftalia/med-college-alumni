@@ -114,8 +114,52 @@ async function updateAlumniRole(req, res) {
   }
 }
 
+// Delete an alumni (admin only)
+async function deleteAlumni(req, res) {
+  try {
+    const connection = await pool.getConnection();
+    
+    // Start a transaction
+    await connection.beginTransaction();
+    
+    try {
+      // First delete the profile
+      await connection.query(
+        'DELETE FROM alumni_profiles WHERE user_id = ?',
+        [req.params.id]
+      );
+      
+      // Then delete the user
+      const [result] = await connection.query(
+        'DELETE FROM users WHERE id = ?',
+        [req.params.id]
+      );
+      
+      if (result.affectedRows === 0) {
+        await connection.rollback();
+        connection.release();
+        return res.status(404).json({ message: 'User not found' });
+      }
+      
+      // Commit the transaction
+      await connection.commit();
+      connection.release();
+      
+      res.json({ message: 'User deleted successfully' });
+    } catch (error) {
+      await connection.rollback();
+      connection.release();
+      throw error;
+    }
+  } catch (error) {
+    console.error('Error deleting alumni:', error);
+    res.status(500).json({ message: 'Error deleting alumni' });
+  }
+}
+
 module.exports = {
   getAllAlumni,
   getAlumniById,
-  updateAlumniRole
+  updateAlumniRole,
+  deleteAlumni
 };

@@ -10,6 +10,7 @@ import Events from './pages/Events';
 import Messages from './pages/Messages';
 import AlumniDirectory from './pages/AlumniDirectory';
 import NotFound from './pages/NotFound';
+import AdminPanel from './pages/AdminPanel';
 import Navbar from './components/Navbar';
 import Loader from './components/Loader';
 import './App.css';
@@ -95,6 +96,15 @@ const App = () => {
             element={
               <PrivateRoute>
                 <Dashboard />
+              </PrivateRoute>
+            } 
+          />
+
+          <Route 
+            path="/admin" 
+            element={
+              <PrivateRoute>
+                <AdminPanel />
               </PrivateRoute>
             } 
           />

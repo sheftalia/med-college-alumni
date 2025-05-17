@@ -124,13 +124,28 @@ async function getCurrentUser(req, res) {
       [req.user.id]
     );
     
-    connection.release();
-    
     if (users.length === 0) {
+      connection.release();
       return res.status(404).json({ message: 'User not found' });
     }
     
-    res.json({ user: users[0] });
+    const user = users[0];
+    
+    // Get the user's profile information if available
+    const [profiles] = await connection.query(
+      'SELECT first_name, last_name FROM alumni_profiles WHERE user_id = ?',
+      [req.user.id]
+    );
+    
+    // Add profile data to user object if found
+    if (profiles.length > 0) {
+      user.first_name = profiles[0].first_name;
+      user.last_name = profiles[0].last_name;
+    }
+    
+    connection.release();
+    
+    res.json({ user });
   } catch (error) {
     console.error('Error fetching current user:', error);
     res.status(500).json({ message: 'Error fetching user data' });

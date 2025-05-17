@@ -29,20 +29,30 @@ const Home = () => {
       try {
         setLoading(true);
         const schoolsData = await getSchoolsAndCourses();
-        const alumniData = await getAllAlumni();
-        
         setSchools(schoolsData.schools || []);
         setCourses(schoolsData.courses || []);
-        setAlumni(alumniData.alumni || []);
+      
+        // Only fetch alumni data if user is logged in
+        if (isLoggedIn) {
+          try {
+           const alumniData = await getAllAlumni();
+           setAlumni(alumniData.alumni || []);
+         } catch (error) {
+           console.error('Failed to fetch alumni data:', error);
+           setAlumni([]);
+          }
+        } else {
+          setAlumni([]); // Empty array for non-logged in users
+        }
       } catch (error) {
         console.error('Failed to fetch data:', error);
       } finally {
         setLoading(false);
       }
     };
-    
+  
     fetchData();
-  }, []);
+  }, [isLoggedIn]);
 
   // Count courses by school and type
   const getSchoolStats = (schoolId) => {

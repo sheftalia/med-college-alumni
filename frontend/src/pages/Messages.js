@@ -4,10 +4,11 @@ import { AuthContext } from '../context/AuthContext';
 import { getUserMessages, getSentMessages, sendMessage, markAsRead, getAllAlumni, getSchoolsAndCourses } from '../services/api';
 import Loader from '../components/Loader';
 import SuccessMessage from '../components/SuccessMessage';
+import WarningMessage from '../components/WarningMessage';
 import '../styles/Messages.css';
 
 const Messages = () => {
-  const { user } = useContext(AuthContext);
+  const { user, isAppliedAlumni } = useContext(AuthContext);
   const [messages, setMessages] = useState([]);
   const [sentMessages, setSentMessages] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -188,6 +189,12 @@ const Messages = () => {
   return (
     <div className="messages-container">
       <h2 className="title-font">Messages</h2>
+
+      {isAppliedAlumni() && (
+        <WarningMessage 
+          message="You need to be approved by an administrator to access the messaging feature." 
+        />
+      )}
       
       {successMessage && (
         <SuccessMessage 

@@ -35,7 +35,8 @@ const Navbar = () => {
 
         {isLoggedIn && isAdmin() && (
           <>
-            <li><Link to="/dashboard">Admin Panel</Link></li>
+            <li><Link to="/admin">Admin Panel</Link></li>
+            <li><Link to="/dashboard">Dashboard</Link></li>
             <li><Link to="/alumni">Alumni Directory</Link></li>
             <li><Link to="/events">Events</Link></li>
             <li><Link to="/messages">Messages</Link></li>

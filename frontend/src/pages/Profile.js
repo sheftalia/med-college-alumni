@@ -1,13 +1,14 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 import { getProfile, updateProfile, getSchoolsAndCourses, createProfile, getAlumniById } from '../services/api';
 import Loader from '../components/Loader';
 import SuccessMessage from '../components/SuccessMessage';
+import WarningMessage from '../components/WarningMessage';
 import '../styles/Profile.css';
 
 const Profile = ({ viewMode = false }) => {
-  const { user } = useContext(AuthContext);
+  const { user, isAppliedAlumni } = useContext(AuthContext);
   const { id: profileId } = useParams();
   const [profile, setProfile] = useState(null);
   const [schools, setSchools] = useState([]);
@@ -210,6 +211,12 @@ const Profile = ({ viewMode = false }) => {
   return (
     <div className="profile-container">
       <h2 className="alumni-profile-title">Alumni Profile</h2>
+
+      {!viewMode && isAppliedAlumni() && (
+        <WarningMessage 
+          message="Your account is pending approval by an administrator. Some features are limited until your account is approved." 
+        />
+      )}
       
       {profile ? (
         <div className="profile-view">
@@ -270,6 +277,26 @@ const Profile = ({ viewMode = false }) => {
                 </p>
               )}
             </div>
+
+            {viewMode && profile && (
+              <div className="profile-actions" style={{ marginTop: '20px', display: 'flex', gap: '10px' }}>
+                <Link 
+                  to={`/messages?recipient=${profile.user_id}&name=${profile.first_name}%20${profile.last_name}`} 
+                  className="primary-button"
+                  style={{ textDecoration: 'none' }}
+                >
+                  Send Message
+                </Link>
+    
+                <button 
+                  onClick={() => window.history.back()} 
+                  className="secondary-button"
+                >
+                  Return to Directory
+                </button>
+              </div>
+            )}
+
           </div>
         ) : (
           <p className="not-found">Alumni profile not found.</p>
