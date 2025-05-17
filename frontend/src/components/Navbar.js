@@ -22,30 +22,35 @@ const Navbar = () => {
       </div>
       <ul className="nav-links">
         <li><Link to="/">Home</Link></li>
-        <li><Link to="/events">Events</Link></li>
+        
+        {isLoggedIn && isRegisteredAlumni() && (
+          <>
+            <li><Link to="/dashboard">Dashboard</Link></li>
+            <li><Link to="/profile">My Profile</Link></li>
+            <li><Link to="/alumni">Alumni Directory</Link></li>
+            <li><Link to="/events">Events</Link></li>
+            <li><Link to="/messages">Messages</Link></li>
+          </>
+        )}
+
+        {isLoggedIn && isAdmin() && (
+          <>
+            <li><Link to="/dashboard">Admin Panel</Link></li>
+            <li><Link to="/alumni">Alumni Directory</Link></li>
+            <li><Link to="/events">Events</Link></li>
+            <li><Link to="/messages">Messages</Link></li>
+          </>
+        )}
+
+        {isLoggedIn && !isRegisteredAlumni() && !isAdmin() && (
+          <li><Link to="/profile">Create Profile</Link></li>
+        )}
 
         {!isLoggedIn && (
           <>
             <li><Link to="/login">Login</Link></li>
             <li><Link to="/register">Register</Link></li>
           </>
-        )}
-
-        {isLoggedIn && isAdmin() && (
-          <li><Link to="/dashboard">Admin Panel</Link></li>
-        )}
-
-        {isLoggedIn && isRegisteredAlumni() && (
-          <>
-            <li><Link to="/dashboard">Dashboard</Link></li>
-            <li><Link to="/alumni">Alumni Directory</Link></li>
-            <li><Link to="/messages">Messages</Link></li>
-            <li><Link to="/profile">My Profile</Link></li>
-          </>
-        )}
-
-        {isLoggedIn && !isRegisteredAlumni() && !isAdmin() && (
-          <li><Link to="/profile">Create Profile</Link></li>
         )}
 
         {isLoggedIn && (

@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useRef } from 'react';
+import { useLocation } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 import { getUserMessages, getSentMessages, sendMessage, markAsRead, getAllAlumni, getSchoolsAndCourses } from '../services/api';
 import Loader from '../components/Loader';
@@ -18,6 +19,8 @@ const Messages = () => {
   const [courses, setCourses] = useState([]);
   const [selectedSchoolId, setSelectedSchoolId] = useState('');
   const [filteredCourses, setFilteredCourses] = useState([]);
+  const location = useLocation();
+  const composerRef = useRef(null);
   
   const [formData, setFormData] = useState({
     recipient_id: '',
@@ -30,7 +33,27 @@ const Messages = () => {
   useEffect(() => {
     fetchMessages();
     fetchAlumniAndSchools();
-  }, []);
+  
+    // Check URL for recipient parameters
+    const queryParams = new URLSearchParams(location.search);
+    const recipientId = queryParams.get('recipient');
+    const recipientName = queryParams.get('name');
+    
+    if (recipientId) {
+      setShowComposeForm(true);
+      setFormData(prev => ({
+        ...prev,
+        recipient_id: recipientId
+      }));
+      
+      // Scroll to composer form
+      setTimeout(() => {
+        if (composerRef.current) {
+          composerRef.current.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    }
+  }, [location.search]);
   
   useEffect(() => {
     if (selectedSchoolId) {
@@ -198,7 +221,7 @@ const Messages = () => {
       </div>
       
       {showComposeForm && (
-        <div className="compose-form">
+        <div className="compose-form" ref={composerRef}>
           <h3>Compose New Message</h3>
           <form onSubmit={handleSubmit}>
             <div className="form-group">

@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { registerUser, getSchoolsAndCourses } from '../services/api';
 import '../styles/Register.css';
 
 const Register = () => {
   const [formData, setFormData] = useState({
+    first_name: '',
+    last_name: '',
     email: '',
     password: '',
     confirmPassword: '',
-    gender: '' // Add gender field
+    gender: ''
   });
 
   const [errors, setErrors] = useState({});
@@ -17,6 +19,7 @@ const Register = () => {
   const [courses, setCourses] = useState([]);
   const [selectedSchool, setSelectedSchool] = useState('');
   const [filteredCourses, setFilteredCourses] = useState([]);
+  const [successMessage, setSuccessMessage] = useState('');
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -63,6 +66,8 @@ const Register = () => {
   const validateForm = () => {
     const errors = {};
 
+    if (!formData.first_name) errors.first_name = "First Name is required.";
+    if (!formData.last_name) errors.last_name = "Last Name is required.";
     if (!formData.email) errors.email = "Email is required.";
     if (!formData.password) errors.password = "Password is required.";
     if (formData.password !== formData.confirmPassword) 
@@ -81,18 +86,17 @@ const Register = () => {
       try {
         setLoading(true);
         const userData = {
+          first_name: formData.first_name,
+          last_name: formData.last_name,
           email: formData.email,
           password: formData.password,
           gender: formData.gender
         };
         
-        const response = await registerUser(userData);
+        await registerUser(userData);
         
         // Instead of alert, we'll set a success message to display in the form
-        setFormData({
-          ...formData,
-          successMessage: "Registration successful! Please login to continue."
-        });
+        setSuccessMessage("Registration successful! Please login to continue.");
         
         // Redirect after a short delay
         setTimeout(() => {
@@ -110,9 +114,9 @@ const Register = () => {
     <div className="register-container">
       <h2>Register as an Alumni</h2>
       <form onSubmit={handleSubmit}>
-        {formData.successMessage && (
+        {successMessage && (
           <div className="success-message">
-            {formData.successMessage}
+            {successMessage}
             <button 
               type="button" 
               className="success-button"
@@ -123,6 +127,32 @@ const Register = () => {
           </div>
         )}
       
+        <div className="form-row">
+          <div className="form-group">
+            <input 
+              type="text" 
+              name="first_name" 
+              placeholder="First Name" 
+              value={formData.first_name} 
+              onChange={handleChange} 
+              required
+            />
+            {errors.first_name && <p className="error">{errors.first_name}</p>}
+          </div>
+          
+          <div className="form-group">
+            <input 
+              type="text" 
+              name="last_name" 
+              placeholder="Last Name" 
+              value={formData.last_name} 
+              onChange={handleChange} 
+              required
+            />
+            {errors.last_name && <p className="error">{errors.last_name}</p>}
+          </div>
+        </div>
+        
         <input 
           type="email" 
           name="email" 
@@ -207,7 +237,7 @@ const Register = () => {
       </form>
       
       <div className="form-footer">
-        Already have an account? <a href="/login">Login here</a>
+        Already have an account? <Link to="/login">Login here</Link>
       </div>
     </div>
   );

@@ -2,6 +2,8 @@ const mysql = require('mysql2/promise');
 const fs = require('fs');
 const path = require('path');
 const { schools } = require('../utils/schoolData');
+const { alumniData } = require('../utils/alumniData');
+const bcrypt = require('bcryptjs');
 
 // Database connection configuration
 const dbConfig = {
@@ -43,6 +45,22 @@ async function initializeDatabase() {
       )
     `);
     
+    // Check if school_color column exists before trying to add it
+    const [schoolColorColumn] = await connection.query(`
+      SELECT * FROM INFORMATION_SCHEMA.COLUMNS 
+      WHERE TABLE_SCHEMA = ? 
+      AND TABLE_NAME = 'schools' 
+      AND COLUMN_NAME = 'school_color'
+    `, [dbConfig.database]);
+
+    // Add school_color column only if it doesn't exist
+    if (schoolColorColumn.length === 0) {
+      await connection.query(`
+        ALTER TABLE schools
+        ADD COLUMN school_color VARCHAR(7) DEFAULT '#9E0B0F'
+      `);
+    }
+    
     // Create courses table
     await connection.query(`
       CREATE TABLE IF NOT EXISTS courses (
@@ -77,52 +95,6 @@ async function initializeDatabase() {
         FOREIGN KEY (course_id) REFERENCES courses(id)
       )
     `);
-    
-    // Populate schools and courses from data
-    for (const school of schools) {
-      // Check if the school already exists
-      const [existingSchools] = await connection.query(
-        'SELECT id FROM schools WHERE name = ?',
-        [school.name]
-      );
-  
-      let schoolId;
-  
-      if (existingSchools.length === 0) {
-        // School doesn't exist, insert it
-        const [schoolResult] = await connection.query(
-          'INSERT INTO schools (name) VALUES (?)',
-          [school.name]
-        );
-        schoolId = schoolResult.insertId;
-      } else {
-        // School already exists
-        schoolId = existingSchools[0].id;
-      }
-  
-      for (const course of school.courses) {
-        // Check if the course already exists for this school
-        const [existingCourses] = await connection.query(
-          'SELECT id FROM courses WHERE school_id = ? AND name = ?',
-          [schoolId, course.name]
-        );
-    
-        if (existingCourses.length === 0) {
-          // Course doesn't exist, insert it
-          await connection.query(
-            'INSERT INTO courses (school_id, name, degree_type) VALUES (?, ?, ?)',
-            [schoolId, course.name, course.degree_type]
-          );
-        }
-      }
-    }
-    
-    // Create admin user if it doesn't exist
-    const adminPassword = await require('bcryptjs').hash('admin123', 10);
-    await connection.query(`
-      INSERT IGNORE INTO users (email, password, role) 
-      VALUES ('admin@medcollege.edu.gr', ?, 'admin')
-    `, [adminPassword]);
     
     // Check if gender column exists before trying to add it
     const [columns] = await connection.query(`
@@ -173,23 +145,46 @@ async function initializeDatabase() {
       )
     `);
     
-    // Check if school_color column exists before trying to add it
-    const [schoolColorColumn] = await connection.query(`
-      SELECT * FROM INFORMATION_SCHEMA.COLUMNS 
-      WHERE TABLE_SCHEMA = ? 
-      AND TABLE_NAME = 'schools' 
-      AND COLUMN_NAME = 'school_color'
-    `, [dbConfig.database]);
-
-    // Add school_color column only if it doesn't exist
-    if (schoolColorColumn.length === 0) {
-      await connection.query(`
-        ALTER TABLE schools
-        ADD COLUMN school_color VARCHAR(7) DEFAULT '#9E0B0F'
-      `);
+    // Populate schools and courses from data
+    for (const school of schools) {
+      // Check if the school already exists
+      const [existingSchools] = await connection.query(
+        'SELECT id FROM schools WHERE name = ?',
+        [school.name]
+      );
+      
+      let schoolId;
+      
+      if (existingSchools.length === 0) {
+        // School doesn't exist, insert it
+        const [schoolResult] = await connection.query(
+          'INSERT INTO schools (name) VALUES (?)',
+          [school.name]
+        );
+        schoolId = schoolResult.insertId;
+      } else {
+        // School already exists
+        schoolId = existingSchools[0].id;
+      }
+      
+      for (const course of school.courses) {
+        // Check if the course already exists for this school
+        const [existingCourses] = await connection.query(
+          'SELECT id FROM courses WHERE school_id = ? AND name = ?',
+          [schoolId, course.name]
+        );
+        
+        if (existingCourses.length === 0) {
+          // Course doesn't exist, insert it
+          await connection.query(
+            'INSERT INTO courses (school_id, name, degree_type) VALUES (?, ?, ?)',
+            [schoolId, course.name, course.degree_type]
+          );
+        }
+      }
     }
     
-    // Update school colours (based on images from Med College site)
+    // Update school colors
     const schoolColors = [
       { name: 'School of Arts & Design', color: '#8d5b87' },
       { name: 'Business School', color: '#2e4c9b' },
@@ -209,13 +204,87 @@ async function initializeDatabase() {
       );
     }
     
+    // Create admin user if it doesn't exist
+    const adminPassword = await bcrypt.hash('admin123', 10);
+    await connection.query(`
+      INSERT IGNORE INTO users (email, password, role) 
+      VALUES ('admin@medcollege.edu.gr', ?, 'admin')
+    `, [adminPassword]);
+    
+    // Add fake alumni data for demonstration
+    for (const alumni of alumniData) {
+      try {
+        // Find the course
+        const [courseResults] = await connection.query(
+          'SELECT c.id, c.school_id FROM courses c JOIN schools s ON c.school_id = s.id WHERE c.name = ? AND s.name = ?',
+          [alumni.course, alumni.school]
+        );
+        
+        if (courseResults.length > 0) {
+          const courseId = courseResults[0].id;
+          
+          // Check if user with this email already exists
+          const [existingUsers] = await connection.query(
+            'SELECT id FROM users WHERE email = ?',
+            [alumni.contact_email]
+          );
+          
+          let userId;
+          
+          if (existingUsers.length === 0) {
+            // Create user with a dummy password (for demo purposes)
+            const hashedPassword = await bcrypt.hash('demopassword', 10);
+            const [userResult] = await connection.query(
+              'INSERT INTO users (email, password, role) VALUES (?, ?, ?)',
+              [alumni.contact_email, hashedPassword, 'registered_alumni']
+            );
+            
+            userId = userResult.insertId;
+          } else {
+            userId = existingUsers[0].id;
+          }
+          
+          // Check if profile already exists
+          const [existingProfiles] = await connection.query(
+            'SELECT id FROM alumni_profiles WHERE user_id = ?',
+            [userId]
+          );
+          
+          if (existingProfiles.length === 0) {
+            // Create alumni profile
+            await connection.query(
+              `INSERT INTO alumni_profiles 
+               (user_id, first_name, last_name, gender, graduation_year, course_id, 
+                bio, current_position, company, contact_email, phone, linkedin)
+               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+              [
+                userId, 
+                alumni.first_name, 
+                alumni.last_name, 
+                alumni.gender, 
+                alumni.graduation_year, 
+                courseId, 
+                alumni.bio, 
+                alumni.current_position,
+                alumni.company, 
+                alumni.contact_email, 
+                alumni.phone, 
+                alumni.linkedin
+              ]
+            );
+          }
+        }
+      } catch (error) {
+        console.error(`Error adding alumni ${alumni.first_name} ${alumni.last_name}:`, error);
+      }
+    }
+    
     connection.release();
     console.log('Database initialized successfully');
   } catch (error) {
     console.error('Database initialization error:', error);
   }
 }
-
 
 // Export the pool to be used in other files
 module.exports = {

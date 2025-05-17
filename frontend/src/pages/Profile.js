@@ -191,70 +191,80 @@ const Profile = ({ viewMode = false }) => {
     }
   };
 
+  const getSchoolColor = (courseId) => {
+    if (!courseId || !courses.length) return '#9E0B0F'; // Default red
+  
+    const course = courses.find(c => c.id === courseId);
+    if (!course) return '#9E0B0F';
+  
+    const school = schools.find(s => s.id === course.school_id);
+    return school?.school_color || '#9E0B0F';
+  };
+
   if (loading) {
     return <Loader loading={true} />;
   }
 
   // If in view mode and viewing someone else's profile
   if (viewMode) {
-    return (
-      <div className="profile-container">
-        <h2>Alumni Profile</h2>
-        
-        {profile ? (
-          <div className="profile-view">
-            <div className="profile-header">
-              <div 
-                className="profile-avatar"
-                style={{ backgroundColor: '#9E0B0F' }}
-              >
-                <img 
-                  src={`/images/${profile.gender || 'male'}.svg`} 
-                  alt="Profile" 
-                  className="avatar-image"
-                />
-              </div>
-              <div className="profile-name-info">
-                <h3>{profile.first_name} {profile.last_name}</h3>
-                <p className="school-info">{profile.school_name}</p>
-                <p className="course-info">{profile.course_name}</p>
-                {profile.graduation_year && (
-                  <p className="year-info">Class of {profile.graduation_year}</p>
-                )}
-              </div>
+  return (
+    <div className="profile-container">
+      <h2 className="alumni-profile-title">Alumni Profile</h2>
+      
+      {profile ? (
+        <div className="profile-view">
+          <div className="profile-header">
+            <div 
+              className="profile-avatar"
+              style={{ backgroundColor: getSchoolColor(profile.course_id) }}
+            >
+              <img 
+                src={`/images/${profile.gender || 'male'}.svg`} 
+                alt="Profile" 
+                className="avatar-image"
+              />
             </div>
-            
-            {profile.bio && (
-              <div className="profile-section">
-                <h4>About</h4>
-                <p>{profile.bio}</p>
-              </div>
-            )}
-            
-            {(profile.current_position || profile.company) && (
-              <div className="profile-section">
-                <h4>Professional Information</h4>
-                {profile.current_position && (
-                  <p><strong>Current Position:</strong> {profile.current_position}</p>
+            <div className="profile-name-info">
+              <h3>{profile.first_name} {profile.last_name}</h3>
+              <p className="school-info">{profile.school_name}</p>
+              <p className="course-info">{profile.course_name}</p>
+              {profile.graduation_year && (
+                <p className="year-info">Class of {profile.graduation_year}</p>
+              )}
+            </div>
+          </div>
+          
+          {profile.bio && (
+            <div className="profile-section">
+              <h4 className="section-heading">About</h4>
+              <p>{profile.bio}</p>
+            </div>
+          )}
+          
+          {(profile.current_position || profile.company) && (
+            <div className="profile-section">
+              <h4 className="section-heading">Professional Information</h4>
+               {profile.current_position && (
+                 <p><strong>Current Position:</strong> {profile.current_position}</p>
                 )}
-                {profile.company && (
+               {profile.company && (
                   <p><strong>Company:</strong> {profile.company}</p>
                 )}
-              </div>
-            )}
-            
-            <div className="profile-section">
-              <h4>Contact Information</h4>
-              {profile.contact_email && (
+             </div>
+           )}
+          
+           <div className="profile-section">
+             <h4 className="section-heading">Contact Information</h4>
+             {profile.contact_email && (
                 <p><strong>Email:</strong> {profile.contact_email}</p>
               )}
               {profile.phone && (
                 <p><strong>Phone:</strong> {profile.phone}</p>
-              )}
-              {profile.linkedin && (
-                <p>
-                  <strong>LinkedIn:</strong> 
-                  <a href={profile.linkedin} target="_blank" rel="noopener noreferrer" className="linkedin-link">
+             )}
+             {profile.linkedin && (
+               <p>
+                  <strong>LinkedIn:</strong> {' '}
+                  <a href={profile.linkedin} target="_blank" rel="noopener noreferrer" className="linkedin-text-link">
                     {profile.linkedin}
                   </a>
                 </p>

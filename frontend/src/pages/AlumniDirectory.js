@@ -224,7 +224,7 @@ const AlumniDirectory = () => {
                   </Link>
                   
                   <Link 
-                    to={`/messages?recipient=${alum.user_id}`} 
+                    to={`/messages?recipient=${alum.user_id}&name=${alum.first_name}%20${alum.last_name}`} 
                     className="send-message"
                     style={{ backgroundColor: schoolColor }}
                   >

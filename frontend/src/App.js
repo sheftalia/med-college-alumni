@@ -104,7 +104,7 @@ const App = () => {
         </Routes>
       </main>
       <footer className="footer">
-        <p>© {new Date().getFullYear()} Mediterranean College Alumni Portal. All rights reserved.</p>
+        <p>Copyright © {new Date().getFullYear()} Mediterranean College Alumni Portal</p>
       </footer>
     </div>
   );

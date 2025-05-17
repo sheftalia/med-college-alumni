@@ -120,3 +120,101 @@
     width: 100%;
   }
 }
+
+.alumni-profile-title {
+  color: var(--primary-color);
+  text-align: center;
+  margin-bottom: 30px;
+  position: relative;
+  padding-bottom: 15px;
+}
+
+.alumni-profile-title:after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background-color: var(--primary-color);
+}
+
+.profile-view {
+  background-color: white;
+  border-radius: 8px;
+  padding: 30px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+}
+
+.profile-header {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--medium-gray);
+}
+
+.profile-avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.avatar-image {
+  width: 60%;
+  height: 60%;
+  filter: brightness(0) invert(1);
+}
+
+.profile-name-info h3 {
+  margin: 0 0 10px 0;
+  color: var(--primary-color);
+  font-size: 1.6rem;
+}
+
+.school-info, .course-info, .year-info {
+  margin: 5px 0;
+  color: var(--dark-gray);
+}
+
+.profile-section {
+  margin-bottom: 25px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--light-gray);
+}
+
+.profile-section:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.section-heading {
+  color: var(--primary-color);
+  margin-bottom: 15px;
+  font-size: 1.2rem;
+}
+
+.linkedin-text-link {
+  color: var(--secondary-color);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.linkedin-text-link:hover {
+  text-decoration: underline;
+  color: #0056b3;
+}
+
+.not-found {
+  text-align: center;
+  padding: 30px;
+  background-color: var(--light-gray);
+  border-radius: 8px;
+  font-weight: 500;
+}

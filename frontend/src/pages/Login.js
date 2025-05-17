@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 import { loginUser } from '../services/api';
 import '../styles/Login.css';
@@ -65,6 +65,11 @@ const Login = () => {
         <button type="submit" disabled={loading}>
           {loading ? 'Logging in...' : 'Login'}
         </button>
+
+        <div className="form-footer">
+          Don't have an account? <Link to="/register">Register here</Link>
+        </div>
+
       </form>
     </div>
   );

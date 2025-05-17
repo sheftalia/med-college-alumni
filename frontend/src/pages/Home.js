@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../context/AuthContext';
 import { getAllAlumni, getSchoolsAndCourses } from '../services/api';
 import '../styles/Home.css';
 
@@ -17,6 +18,7 @@ const schoolColors = {
 };
 
 const Home = () => {
+  const { isLoggedIn } = useContext(AuthContext); 
   const [schools, setSchools] = useState([]);
   const [courses, setCourses] = useState([]);
   const [alumni, setAlumni] = useState([]);
@@ -85,12 +87,12 @@ const Home = () => {
         </div>
       </section>
 
-      <section className="schools-section">
+            <section className="schools-section">
         <h2 className="title-font section-title">Our Schools and Programmes</h2>
         <div className="schools-list">
           {schools.map(school => {
             const stats = getSchoolStats(school.id);
-            const schoolColor = schoolColors[school.name] || "#9E0B0F";
+            const schoolColor = school.school_color || "#9E0B0F";
             
             return (
               <div className="school" key={school.id} style={{ borderTop: `3px solid ${schoolColor}` }}>
@@ -100,9 +102,16 @@ const Home = () => {
                   <span>{stats.postgrad} Postgraduate Courses</span>
                   <span>{stats.alumniCount} Alumni Registered</span>
                 </p>
-                <Link to={`/alumni?school=${school.id}`} className="view-alumni" style={{ color: schoolColor }}>
-                  View Alumni
-                </Link>
+                
+                {isLoggedIn ? (
+                  <Link to={`/alumni?school=${school.id}`} className="view-alumni" style={{ color: schoolColor }}>
+                    View Alumni
+                  </Link>
+                ) : (
+                  <Link to="/login" className="view-alumni" style={{ color: schoolColor }}>
+                    Sign in to view alumni
+                  </Link>
+                )}
               </div>
             );
           })}
