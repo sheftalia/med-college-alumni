@@ -2,9 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { getAllAlumni, updateUserRole, deleteUser } from '../services/api';
 import Loader from '../components/Loader';
 import SuccessMessage from '../components/SuccessMessage';
-import axios from 'axios';
-
-const API_URL = "http://localhost:5000/api";
 
 const AdminPanel = () => {
   const [alumni, setAlumni] = useState([]);
@@ -69,7 +66,7 @@ const AdminPanel = () => {
 
   return (
     <div style={{ maxWidth: '1000px', margin: '40px auto', padding: '0 20px' }}>
-      <h2 style={{ textAlign: 'center', marginBottom: '30px' }}>Admin Panel</h2>
+      <h2 className="title-font" style={{ color: 'var(--primary-color)', marginBottom: '20px', textAlign: 'center' }}>Admin Panel</h2>
       
       {successMessage && (
         <SuccessMessage 
@@ -83,7 +80,12 @@ const AdminPanel = () => {
         <select 
           value={filter} 
           onChange={(e) => setFilter(e.target.value)}
-          style={{ padding: '8px', borderRadius: '4px' }}
+          style={{ 
+            padding: '12px', 
+            borderRadius: '4px',
+            border: '1px solid var(--medium-gray)',
+            fontFamily: 'Inter, sans-serif'
+          }}
         >
           <option value="all">All Users</option>
           <option value="applied_alumni">Applied Alumni</option>
@@ -143,7 +145,12 @@ const AdminPanel = () => {
             </div>
           ))
         ) : (
-          <p style={{ textAlign: 'center', padding: '40px', backgroundColor: '#f5f5f5', borderRadius: '8px' }}>
+          <p style={{ 
+            textAlign: 'center', 
+            padding: '40px', 
+            backgroundColor: '#f5f5f5', 
+            borderRadius: '8px'
+          }}>
             No users found matching the filter.
           </p>
         )}
